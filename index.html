@@ -139,10 +139,10 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 #intro{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;align-items:center;justify-content:center;transition:opacity .9s var(--ease),visibility 0s .9s}
 #intro.gone{opacity:0;visibility:hidden}
 #intro button{position:relative;width:28px;height:28px;border:0;background:none;cursor:pointer;padding:0}
-#intro .dt{position:absolute;inset:0;border-radius:50%;background:var(--volt);animation:breathe 2.4s ease-in-out infinite}
+#intro .dt{position:absolute;inset:0;border-radius:50%;background:var(--silver);animation:breathe 2.4s ease-in-out infinite;transition:background .9s var(--ease) .2s}
 #intro .ln{position:absolute;right:calc(100% + 32px);top:50%;height:23px;width:0;transform:translateY(-50%);border-radius:12px;background:var(--silver);transition:width .9s var(--ease)}
 #intro.go .ln{width:190px}
-#intro.go .dt{animation:none}
+#intro.go .dt{animation:none;background:var(--volt)}
 #intro button:focus-visible{outline:1px solid var(--steel);outline-offset:10px;border-radius:50%}
 #intro p{position:absolute;bottom:8vh;left:0;right:0;text-align:center;font-size:11px;color:var(--steel);transition:opacity .4s}
 #intro.go p{opacity:0}
