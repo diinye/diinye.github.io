@@ -97,8 +97,10 @@ section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
 /* + 디인예 = */
 .eq{font-size:clamp(28px,5.2vw,72px);font-weight:800;letter-spacing:-.045em;line-height:1.15;min-height:2.4em}
 .eq .plus{color:var(--steel);font-weight:400}
-.eq .slot{display:inline-block;transition:opacity .45s,transform .45s var(--ease)}
-.eq .slot.out{opacity:0;transform:translateY(-14px)}
+.eq .slot{display:inline-block;transition:opacity .7s var(--ease),transform .9s var(--ease),filter .7s var(--ease)}
+.eq #eqB{transition-delay:.12s}
+.eq .slot.out{opacity:0;transform:translateY(-.22em);filter:blur(8px)}
+.eq .slot.pre{opacity:0;transform:translateY(.22em);filter:blur(8px);transition:none}
 .eqlist{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px}
 .eqlist button{font:inherit;font-size:13px;color:var(--steel);background:none;border:1px solid var(--hair);border-radius:999px;padding:6px 14px;cursor:pointer;transition:all .25s}
 .eqlist button:hover,.eqlist button.on{color:var(--silver);border-color:var(--steel)}
@@ -132,6 +134,21 @@ section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
 
 footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:28px 0 56px;border-top:1px solid var(--hair);font-size:11px;color:var(--steel)}
 
+
+/* 첫 화면: 먹 화면에 파란 점 하나 */
+#intro{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;align-items:center;justify-content:center;transition:opacity .9s var(--ease),visibility 0s .9s}
+#intro.gone{opacity:0;visibility:hidden}
+#intro button{position:relative;width:28px;height:28px;border:0;background:none;cursor:pointer;padding:0}
+#intro .dt{position:absolute;inset:0;border-radius:50%;background:var(--volt);animation:breathe 2.4s ease-in-out infinite}
+#intro .ln{position:absolute;right:calc(100% + 32px);top:50%;height:23px;width:0;transform:translateY(-50%);border-radius:12px;background:var(--silver);transition:width .9s var(--ease)}
+#intro.go .ln{width:190px}
+#intro.go .dt{animation:none}
+#intro button:focus-visible{outline:1px solid var(--steel);outline-offset:10px;border-radius:50%}
+#intro p{position:absolute;bottom:8vh;left:0;right:0;text-align:center;font-size:11px;color:var(--steel);transition:opacity .4s}
+#intro.go p{opacity:0}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+body.locked{overflow:hidden}
+
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{transition:none!important;animation:none!important}
   .rv,.logo .gl,.logo .dot,.slogan,.cue{opacity:1!important;transform:none!important}
@@ -139,7 +156,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 }
 </style>
 </head>
-<body>
+<body class="locked">
+<div id="intro"><button type="button" aria-label="디인예로 들어가기"><i class="ln"></i><b class="dt"></b></button><p class="mono">CLICK THE DOT</p></div>
 <div class="progress" aria-hidden="true"><i></i><b></b></div>
 
 <header class="nav mono">
@@ -252,7 +270,17 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // 히어로 등장
-  requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('ready')));
+  const intro = document.getElementById('intro');
+  const enter = () => {
+    if (intro.classList.contains('go')) return;
+    intro.classList.add('go');
+    setTimeout(() => {
+      intro.classList.add('gone'); document.body.classList.remove('locked');
+      setTimeout(() => document.body.classList.add('ready'), reduce ? 0 : 250);
+    }, reduce ? 0 : 1050);
+  };
+  intro.querySelector('button').addEventListener('click', enter);
+  intro.querySelector('button').focus({ preventScroll: true });
 
   // 원칙: 단어 단위로 쪼개기
   const P = document.querySelector('[data-words]');
@@ -320,10 +348,15 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
   const btns = pairs.map((p, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = p[0]; b.onclick = () => { show(i); restart(); }; L.append(b); return b; });
   function show(i) {
     cur = i; btns.forEach((b, j) => b.classList.toggle('on', j === i));
+    if (reduce) { A.textContent = pairs[i][0]; B.textContent = pairs[i][1]; return; }
     A.classList.add('out'); B.classList.add('out');
-    setTimeout(() => { A.textContent = pairs[i][0]; B.textContent = pairs[i][1]; A.classList.remove('out'); B.classList.remove('out'); }, reduce ? 0 : 380);
+    setTimeout(() => {
+      [A, B].forEach((el, k) => { el.classList.remove('out'); el.classList.add('pre'); el.textContent = pairs[i][k]; });
+      void A.offsetWidth;
+      requestAnimationFrame(() => { A.classList.remove('pre'); B.classList.remove('pre'); });
+    }, 820);
   }
-  function restart() { clearInterval(timer); if (!reduce) timer = setInterval(() => show((cur + 1) % pairs.length), 2600); }
+  function restart() { clearInterval(timer); if (!reduce) timer = setInterval(() => show((cur + 1) % pairs.length), 3400); }
   btns[cur].classList.add('on'); restart();
 
   // 증명 흐름
