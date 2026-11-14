@@ -9,171 +9,330 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{--ink:#0D0E10;--silver:#E9EBEE;--steel:#8A8F98;--hair:#24272D;--volt:#3D5BFF}
+:root{--ink:#0D0E10;--silver:#E9EBEE;--steel:#8A8F98;--hair:#24272D;--volt:#3D5BFF;--ease:cubic-bezier(.2,.7,.1,1)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--ink)}
-body{background:var(--ink);color:var(--silver);font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all}
-a{color:inherit}
-.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+html{background:var(--ink);scroll-behavior:smooth}
+body{background:var(--ink);color:var(--silver);font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 @media (max-width:600px){.wrap{padding:0 16px}}
-.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;letter-spacing:.06em;font-variant-numeric:tabular-nums}
-.meta{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--hair);font-size:11px;color:var(--steel);line-height:1.5}
-.meta p{padding:12px 0}
-.meta p+p{padding-left:12px;border-left:1px solid var(--hair)}
-@media (max-width:600px){.meta{grid-template-columns:1fr 1fr}.meta p:nth-child(3){padding-left:0;border-left:0}.meta p:nth-child(n+3){border-top:1px solid var(--hair)}}
 
-.hero{min-height:min(calc(100svh - 58px),900px);display:flex;flex-direction:column;justify-content:flex-end;padding:56px 0 48px;border-bottom:1px solid var(--hair)}
-.hero img{width:100%;max-width:100%;min-width:0;height:auto;display:block;align-self:stretch}
-.slogan{font-size:clamp(28px,5.4vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1.15;margin-top:36px}
+/* 진행 선: 스크롤만큼 선이 자라고, 점은 언제나 한 발 앞 */
+.progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:50;pointer-events:none}
+.progress i{position:absolute;left:0;top:0;height:3px;width:0;background:var(--silver);border-radius:2px}
+.progress b{position:absolute;top:-2.5px;width:8px;height:8px;border-radius:50%;background:var(--volt);left:0}
+
+header.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:18px 32px;mix-blend-mode:difference}
+header.nav img{height:12px;display:block}
+header.nav nav{display:flex;gap:22px;font-size:11px}
+header.nav nav a{opacity:.75;transition:opacity .2s}
+header.nav nav a:hover{opacity:1}
+@media (max-width:600px){header.nav{padding:16px}header.nav nav a.opt{display:none}}
+
+/* 히어로 */
+.hero{height:100svh;min-height:560px;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:7vh;position:relative}
+.logo{position:relative;width:100%;aspect-ratio:1184.82/288.6}
+.logo svg{width:100%;height:100%;display:block;overflow:visible}
+.logo .gl,.logo .dot{transform-box:fill-box}
+.logo .gl{opacity:0;transform:translateY(18%);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.logo .dot{opacity:0;transform:translateX(-140%);transition:transform 1.2s var(--ease) .75s,opacity .4s .75s}
+.ready .logo .gl{opacity:1;transform:none}
+.ready .logo .gl:nth-child(2){transition-delay:.12s}
+.ready .logo .gl:nth-child(3){transition-delay:.24s}
+.ready .logo .dot{opacity:1;transform:none}
+.slogan{font-size:clamp(26px,4.6vw,58px);font-weight:800;letter-spacing:-.045em;line-height:1.12;margin-top:4.5vh;opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease) 1.2s,transform 1s var(--ease) 1.2s}
 .slogan span{color:var(--steel);font-weight:400}
+.ready .slogan{opacity:1;transform:none}
+.cue{position:absolute;right:0;bottom:7vh;font-size:11px;color:var(--steel);opacity:0;transition:opacity 1s 2s}
+.ready .cue{opacity:1}
+@media (max-width:600px){.cue{display:none}}
 
-section.row{display:grid;grid-template-columns:180px 1fr;gap:28px;padding:64px 0;border-bottom:1px solid var(--hair)}
-section.row>*{min-width:0}
-section.row h2{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.1em;color:var(--steel);padding-top:10px}
-@media (max-width:700px){section.row{grid-template-columns:1fr;gap:14px;padding:44px 0}}
-.big{font-size:clamp(30px,5vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1.2}
-.big span{color:var(--steel);font-weight:400}
-.qa{display:grid;gap:28px}
-.qa .q{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--steel);margin-bottom:6px}
-.qa .a{font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.03em;line-height:1.3}
-.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:32px 24px}
-.nums b{display:block;font:500 clamp(40px,6vw,64px)/1 "IBM Plex Mono",monospace;letter-spacing:-.02em}
-.nums span{display:block;color:var(--steel);font-size:14px;margin-top:8px}
-@media (max-width:600px){.nums{grid-template-columns:1fr 1fr}}
-.log{display:grid;grid-template-columns:64px 1fr;gap:12px 16px;font-size:17px}
-.log .y{font:400 13px "IBM Plex Mono",monospace;color:var(--steel);padding-top:3px}
-.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.tracks b{display:block;font-size:24px;letter-spacing:-.03em;margin-bottom:8px}
-.tracks p{color:var(--steel);font-size:15px}
-@media (max-width:700px){.tracks{grid-template-columns:1fr}}
-.combo{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:17px}
-.combo span{color:var(--steel)}
-@media (max-width:600px){.combo{grid-template-columns:1fr}}
-.dense{font-size:14px;line-height:1.75;text-align:justify}
-.dense i{font-style:normal;color:var(--steel);padding:0 3px}
-.dense em{font-style:normal;font:400 12px "IBM Plex Mono",monospace;color:var(--steel)}
-.sym{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.sym img{width:min(360px,100%);display:block}
-.note{color:var(--steel);font-size:15px;margin-top:16px}
-.dl{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.dl a{display:flex;justify-content:space-between;align-items:flex-end;min-height:132px;padding:20px;border:1px solid var(--hair);border-radius:12px;text-decoration:none;transition:border-color .2s}
-.dl a:hover,.dl a:focus-visible{border-color:var(--steel)}
-.dl a b{font-size:20px;letter-spacing:-.02em}
-.dl a span{font:400 11px "IBM Plex Mono",monospace;color:var(--steel);letter-spacing:.06em}
-@media (max-width:600px){.dl{grid-template-columns:1fr}}
-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:28px 0 48px;font-size:11px;color:var(--steel)}
+/* 공통 등장 */
+.rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.label{font-size:11px;color:var(--steel);margin-bottom:28px;display:flex;gap:14px;align-items:center}
+.label:before{content:"";width:28px;height:2px;border-radius:1px;background:var(--steel)}
+
+section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
+@media (max-width:600px){section.wrap{padding-top:14vh;padding-bottom:14vh}}
+
+/* 원칙: 스크롤에 따라 단어가 밝아짐 */
+.principle p{font-size:clamp(36px,7.4vw,104px);font-weight:800;letter-spacing:-.05em;line-height:1.08}
+.principle .w{color:#2A2D33;transition:color .5s}
+.principle .w.lit{color:var(--silver)}
+.principle .w.dim.lit{color:var(--steel)}
+
+/* 우리는 */
+.who{display:grid;gap:12vh}
+.who .q{font-size:11px;color:var(--steel);margin-bottom:12px}
+.who .a{font-size:clamp(28px,5vw,64px);font-weight:800;letter-spacing:-.045em;line-height:1.12}
+
+/* 숫자 */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hair)}
+.nums div{padding:36px 0 40px;border-bottom:1px solid var(--hair)}
+.nums div:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid var(--hair)}
+.nums b{display:block;font:500 clamp(48px,7vw,96px)/1 "IBM Plex Mono",monospace;letter-spacing:-.03em}
+.nums span{display:block;color:var(--steel);font-size:14px;margin-top:14px}
+@media (max-width:700px){.nums{grid-template-columns:1fr 1fr}.nums div:not(:nth-child(3n+1)){padding-left:0;border-left:0}.nums div:nth-child(even){padding-left:20px;border-left:1px solid var(--hair)}}
+
+/* 기록: 선이 내려가고 점이 앞서감 */
+.timeline{position:relative;padding-left:56px}
+.timeline .rail{position:absolute;left:10px;top:6px;bottom:6px;width:3px;background:var(--hair);border-radius:2px}
+.timeline .fill{position:absolute;left:10px;top:6px;width:3px;height:0;background:var(--silver);border-radius:2px}
+.timeline .lead{position:absolute;left:5.5px;width:12px;height:12px;border-radius:50%;background:var(--volt);top:0}
+.timeline li{list-style:none;display:grid;grid-template-columns:90px 1fr;gap:20px;padding:22px 0;font-size:clamp(17px,2vw,22px);letter-spacing:-.02em;border-bottom:1px solid var(--hair)}
+.timeline li .y{font:400 14px "IBM Plex Mono",monospace;color:var(--steel);padding-top:4px}
+@media (max-width:600px){.timeline{padding-left:36px}.timeline li{grid-template-columns:52px 1fr;gap:12px}}
+
+/* 트랙 */
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hair)}
+.tracks a{display:block;padding:36px 28px 44px 0;border-bottom:1px solid var(--hair);transition:background .4s}
+.tracks a+a{padding-left:28px;border-left:1px solid var(--hair)}
+.tracks b{display:block;font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.04em;margin-bottom:14px}
+.tracks p{color:var(--steel);font-size:15px;max-width:22em}
+.tracks a:hover b{color:var(--silver)}
+@media (max-width:700px){.tracks{grid-template-columns:1fr}.tracks a+a{padding-left:0;border-left:0}}
+
+/* + 디인예 = */
+.eq{font-size:clamp(28px,5.2vw,72px);font-weight:800;letter-spacing:-.045em;line-height:1.15;min-height:2.4em}
+.eq .plus{color:var(--steel);font-weight:400}
+.eq .slot{display:inline-block;transition:opacity .45s,transform .45s var(--ease)}
+.eq .slot.out{opacity:0;transform:translateY(-14px)}
+.eqlist{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px}
+.eqlist button{font:inherit;font-size:13px;color:var(--steel);background:none;border:1px solid var(--hair);border-radius:999px;padding:6px 14px;cursor:pointer;transition:all .25s}
+.eqlist button:hover,.eqlist button.on{color:var(--silver);border-color:var(--steel)}
+
+/* 증명: 두 줄이 반대로 흐름 */
+.proof{padding:18vh 0;overflow:hidden}
+.marq{display:flex;width:max-content;gap:0;white-space:nowrap;font-size:clamp(22px,3vw,40px);font-weight:700;letter-spacing:-.03em;animation:mq 90s linear infinite}
+.marq.rev{animation-direction:reverse;color:var(--steel);font-weight:400;margin-top:18px}
+.marq span{padding-right:1.1em}
+.marq span:after{content:"/";color:#3A3E45;padding-left:1.1em;font-weight:400}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.proof:hover .marq{animation-play-state:paused}
+
+/* 심볼 */
+.sym{display:flex;align-items:center;height:clamp(60px,9vw,110px);margin-bottom:48px}
+.sym i{height:44%;width:0;background:var(--silver);border-radius:999px;transition:width 1.4s var(--ease)}
+.sym b{flex:none;height:54%;aspect-ratio:1;border-radius:50%;background:var(--volt);margin-left:6%;opacity:0;transform:translateX(-60px);transition:opacity .6s 1.1s,transform 1.2s var(--ease) 1.1s}
+.sym.on i{width:62%}
+.sym.on b{opacity:1;transform:none}
+.symtxt{font-size:clamp(28px,4.4vw,56px);font-weight:800;letter-spacing:-.045em;line-height:1.15}
+.symtxt span{color:var(--steel);font-weight:400}
+
+/* 내려받기 */
+.dl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dl a{display:flex;flex-direction:column;justify-content:space-between;min-height:170px;padding:22px;border:1px solid var(--hair);border-radius:14px;transition:border-color .25s,transform .25s var(--ease)}
+.dl a:hover,.dl a:focus-visible{border-color:var(--steel);transform:translateY(-3px)}
+.dl a b{font-size:22px;letter-spacing:-.03em}
+.dl a span{font-size:11px;color:var(--steel)}
+@media (max-width:800px){.dl{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.dl{grid-template-columns:1fr}}
+
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:28px 0 56px;border-top:1px solid var(--hair);font-size:11px;color:var(--steel)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{transition:none!important;animation:none!important}
+  .rv,.logo .gl,.logo .dot,.slogan,.cue{opacity:1!important;transform:none!important}
+  .sym i{width:62%}.sym b{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="meta mono">
-    <p>N°19<br>2026—2</p>
-    <p>BRAND<br>IDENTITY</p>
-    <p>37°53′N<br>127°44′E</p>
-    <p>HALLYM UNIV.<br>SINCE 2017</p>
+<div class="progress" aria-hidden="true"><i></i><b></b></div>
+
+<header class="nav mono">
+  <a href="#top" aria-label="맨 위로"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt=""></a>
+  <nav>
+    <a class="opt" href="#who">우리는</a>
+    <a class="opt" href="#record">기록</a>
+    <a href="#download">내려받기</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="logo" role="img" aria-label="디인예">
+      <svg viewBox="155.93 59 1184.82 288.6" aria-hidden="true"><g fill="#E9EBEE" fill-rule="evenodd"><g class="gl"><path d="M155.93 64.48C155.93 63.54 156.7 62.77 157.65 62.77L372.35 62.77C373.3 62.77 374.07 63.54 374.07 64.48L374.07 132.63C374.07 133.58 373.3 134.35 372.35 134.35L240.9 134.35L240.9 261.75C240.9 263.46 242.28 264.84 243.99 264.84L372.35 264.84C373.3 264.84 374.07 265.61 374.07 266.56L374.07 334.7C374.07 335.65 373.3 336.42 372.35 336.42L207.85 336.42C179.18 336.42 155.93 313.18 155.93 284.51L155.93 282.79C155.93 282.79 155.93 282.79 155.93 282.79L155.93 266.56L155.93 132.63C155.93 132.63 155.93 132.63 155.93 132.63L155.93 84.21L155.93 64.48Z"/><path d="M398.64 59L479.43 59C479.68 59 479.88 59.2 479.88 59.44L479.88 347.16C479.88 347.4 479.68 347.6 479.43 347.6L398.64 347.6C398.4 347.6 398.2 347.4 398.2 347.16L398.2 59.44C398.2 59.2 398.4 59 398.64 59Z"/></g><g class="gl"><path d="M754.2 60.33L834.99 60.33C835.23 60.33 835.43 60.53 835.43 60.77L835.43 261.14C835.43 261.38 835.23 261.58 834.99 261.58L754.2 261.58C753.95 261.58 753.75 261.38 753.75 261.14L753.75 60.77C753.75 60.53 753.95 60.33 754.2 60.33Z"/><path d="M521.65 242.57C521.65 241.35 522.65 240.35 523.87 240.35L605.32 240.35C606.54 240.35 607.54 241.35 607.54 242.57L607.54 280.04C607.54 280.15 607.63 280.25 607.75 280.25L639.16 280.25L660.91 280.25L835.98 280.25C837.21 280.25 838.2 281.24 838.2 282.47L838.2 345.38C838.2 346.61 837.21 347.6 835.98 347.6L660.91 347.6L639.16 347.6L554.22 347.6C536.23 347.6 521.65 333.02 521.65 315.04L521.65 305.49C521.65 305.49 521.65 305.49 521.65 305.49L521.65 282.47L521.65 242.57Z"/><path d="M506.41 135.96C506.41 93.91 540.5 59.83 582.55 59.83L654.28 59.83C696.33 59.83 730.41 93.91 730.41 135.96L730.41 155.06C730.41 197.1 696.33 231.19 654.28 231.19L582.55 231.19C540.5 231.19 506.41 197.1 506.41 155.06L506.41 135.96ZM609.37 117.16C595.49 117.16 584.25 128.41 584.25 142.28L584.25 148.74C584.25 162.61 595.49 173.86 609.37 173.86L627.46 173.86C641.33 173.86 652.58 162.61 652.58 148.74L652.58 142.28C652.58 128.41 641.33 117.16 627.46 117.16L609.37 117.16Z"/></g><g class="gl"><path d="M1134.75 59.83L1208.18 59.83C1208.42 59.83 1208.62 60.02 1208.62 60.27L1208.62 347.16C1208.62 347.4 1208.42 347.6 1208.18 347.6L1134.75 347.6C1134.51 347.6 1134.31 347.4 1134.31 347.16L1134.31 60.27C1134.31 60.02 1134.51 59.83 1134.75 59.83Z"/><path d="M1046.01 62.04C1046.01 60.82 1047 59.83 1048.23 59.83L1118.1 59.83C1119.33 59.83 1120.32 60.82 1120.32 62.04L1120.32 345.38C1120.32 346.61 1119.33 347.6 1118.1 347.6L1048.23 347.6C1047 347.6 1046.01 346.61 1046.01 345.38L1046.01 267.72C1046.01 267.54 1045.86 267.39 1045.67 267.39L1029.84 267.39C1028.61 267.39 1027.62 266.39 1027.62 265.17L1027.62 215.54C1027.62 214.31 1028.61 213.32 1029.84 213.32L1045.62 213.32C1045.84 213.32 1046.01 213.15 1046.01 212.93L1046.01 178.09C1046.01 177.84 1045.8 177.63 1045.55 177.63L1029.84 177.63C1028.61 177.63 1027.62 176.64 1027.62 175.41L1027.62 125.78C1027.62 124.56 1028.61 123.57 1029.84 123.57L1045.57 123.57C1045.81 123.57 1046.01 123.37 1046.01 123.13L1046.01 62.04Z"/><path d="M862.95 138.99C862.95 98.91 895.44 66.43 935.51 66.43L961.75 66.43C1001.83 66.43 1034.31 98.91 1034.31 138.99L1034.31 267.61C1034.31 307.69 1001.83 340.18 961.75 340.18L935.51 340.18C895.44 340.18 862.95 307.69 862.95 267.61L862.95 138.99ZM948.63 130.43C940.67 130.43 934.21 136.89 934.21 144.85L934.21 261.75C934.21 269.72 940.67 276.17 948.63 276.17C956.6 276.17 963.05 269.72 963.05 261.75L963.05 144.85C963.05 136.89 956.6 130.43 948.63 130.43Z"/></g></g><path class="dot" fill="#3D5BFF" d="M1242.21 298.33C1242.21 271.12 1264.27 249.06 1291.48 249.06C1318.7 249.06 1340.75 271.12 1340.75 298.33C1340.75 325.54 1318.7 347.6 1291.48 347.6C1264.27 347.6 1242.21 325.54 1242.21 298.33Z"/></svg>
+    </div>
+    <p class="slogan">먼저 와 있던 곳.<br><span>먼저 가 있을 곳.</span></p>
+    <p class="cue mono">SCROLL ↓</p>
   </div>
 
-  <header class="hero">
-    <img src="assets/diinye-logo-final-silver-transparent.svg" alt="디인예">
-    <p class="slogan">먼저 와 있던 곳.<br><span>먼저 가 있을 곳.</span></p>
-  </header>
-
-  <section class="row">
-    <h2>PRINCIPLE</h2>
-    <p class="big">많은 것을 증명했기에,<br><span>많은 말이 필요 없다.</span></p>
+  <section class="wrap principle" id="principle">
+    <p class="label mono">PRINCIPLE</p>
+    <p data-words>많은 것을 증명했기에,<br><span class="dimgrp">많은 말이 필요 없다.</span></p>
   </section>
 
-  <section class="row">
-    <h2>WHO WE ARE</h2>
-    <div class="qa">
-      <div><p class="q">WHERE</p><p class="a">아직 오지 않은 내일을 오늘 배운다.</p></div>
-      <div><p class="q">WHO</p><p class="a">미래를 디자인하는 사람들.</p></div>
-      <div><p class="q">WHY DIFFERENT</p><p class="a">무엇이든 한다, 그리고 잘한다.</p></div>
+  <section class="wrap" id="who">
+    <p class="label mono rv">WHO WE ARE</p>
+    <div class="who">
+      <div class="rv"><p class="q mono">WHERE</p><p class="a">아직 오지 않은 내일을<br>오늘 배운다.</p></div>
+      <div class="rv"><p class="q mono">WHO</p><p class="a">미래를 디자인하는<br>사람들.</p></div>
+      <div class="rv"><p class="q mono">WHY DIFFERENT</p><p class="a">무엇이든 한다,<br>그리고 잘한다.</p></div>
     </div>
   </section>
 
-  <section class="row">
-    <h2>IN NUMBERS</h2>
-    <div class="nums">
-      <div><b>2017</b><span>시작</span></div>
-      <div><b>18</b><span>프로젝트 전시회</span></div>
-      <div><b>3</b><span>트랙 — 디자인 · AI · 엔터컬쳐</span></div>
-      <div><b>50+</b><span>수상 · 논문 · 선발 기록</span></div>
-      <div><b>4</b><span>년 연속 KDM+ 선발</span></div>
-      <div><b>13+</b><span>개 전공과 만났다</span></div>
+  <section class="wrap" id="numbers">
+    <p class="label mono rv">IN NUMBERS</p>
+    <div class="nums rv">
+      <div><b data-count="2017" data-from="1990">2017</b><span>시작</span></div>
+      <div><b data-count="18">18</b><span>프로젝트 전시회</span></div>
+      <div><b data-count="3">3</b><span>트랙 — 디자인 · AI · 엔터컬쳐</span></div>
+      <div><b data-count="50" data-suffix="+">50+</b><span>수상 · 논문 · 선발 기록</span></div>
+      <div><b data-count="4">4</b><span>년 연속 KDM+ 선발</span></div>
+      <div><b data-count="13" data-suffix="+">13+</b><span>개 전공과 만났다</span></div>
     </div>
   </section>
 
-  <section class="row">
-    <h2>RECORD</h2>
-    <div class="log">
-      <p class="y">2017</p><p>디지털인문예술전공이 시작되다.</p>
-      <p class="y">2019</p><p>학생 논문 「오픈소스 한국어 NLP 툴 성능 평가」</p>
-      <p class="y">2019</p><p>학생 논문 「고고학 학술연구논문 빅데이터 분석」</p>
-      <p class="y">2020</p><p>임베디드 소프트웨어 경진대회 산업통상자원부 장관상</p>
-      <p class="y">2022</p><p>세상이 생성형 AI를 만나다.</p>
-      <p class="y">2023</p><p>국제 디자인 교육 엑스포 IDEEC 논문 포스터 6편</p>
-      <p class="y">2026</p><p>한국연구재단 이사장상 2 · 국제 글로컬 솔버톤 수상</p>
-      <p class="y">2026</p><p>제19회 프로젝트 전시회</p>
+  <section class="wrap" id="record">
+    <p class="label mono rv">RECORD</p>
+    <div class="timeline">
+      <span class="rail"></span><span class="fill"></span><span class="lead"></span>
+      <ul>
+        <li class="rv"><span class="y">2017</span><span>디지털인문예술전공이 시작되다.</span></li>
+        <li class="rv"><span class="y">2019</span><span>학생 논문 「오픈소스 한국어 NLP 툴 성능 평가」</span></li>
+        <li class="rv"><span class="y">2019</span><span>학생 논문 「고고학 학술연구논문 빅데이터 분석」</span></li>
+        <li class="rv"><span class="y">2020</span><span>임베디드 소프트웨어 경진대회 산업통상자원부 장관상</span></li>
+        <li class="rv"><span class="y">2022</span><span>세상이 생성형 AI를 만나다.</span></li>
+        <li class="rv"><span class="y">2023</span><span>국제 디자인 교육 엑스포 IDEEC 논문 포스터 6편</span></li>
+        <li class="rv"><span class="y">2026</span><span>한국연구재단 이사장상 2 · 국제 글로컬 솔버톤 수상</span></li>
+        <li class="rv"><span class="y">2026</span><span>제19회 프로젝트 전시회</span></li>
+      </ul>
     </div>
   </section>
 
-  <section class="row">
-    <h2>TRACKS</h2>
-    <div class="tracks">
-      <div><b>디자인</b><p>경험 디자인 · 사회혁신디자인 · AI디자인. 인문사회학 위에 기술과 디자인을 더해 미래의 경험을 만든다.</p></div>
-      <div><b>AI</b><p>AI와 디지털 도구로 새로운 장르를 만들어 낸다.</p></div>
-      <div><b>엔터컬쳐</b><p>디지털 기술과 문화예술을 엮어 새로운 콘텐츠를 기획하고 만든다.</p></div>
+  <section class="wrap" id="tracks">
+    <p class="label mono rv">TRACKS</p>
+    <div class="tracks rv">
+      <a><b>디자인</b><p>경험 디자인 · 사회혁신디자인 · AI디자인. 인문사회학 위에 기술과 디자인을 더해 미래의 경험을 만든다.</p></a>
+      <a><b>AI</b><p>AI와 디지털 도구로 새로운 장르를 만들어 낸다.</p></a>
+      <a><b>엔터컬쳐</b><p>디지털 기술과 문화예술을 엮어 새로운 콘텐츠를 기획하고 만든다.</p></a>
     </div>
   </section>
 
-  <section class="row">
-    <h2>+ DIINYE =</h2>
-    <div class="combo">
-      <p>철학 <span>+ 디인예 =</span> 디지털 마케터</p>
-      <p>빅데이터 <span>+ 디인예 =</span> 자연어처리 박사과정</p>
-      <p>사학 <span>+ 디인예 =</span> 머신러닝 연구원</p>
-      <p>영어영문학 <span>+ 디인예 =</span> 인공지능 연구원</p>
-      <p>의과학융합 <span>+ 디인예 =</span> 프랑스 공중보건 석사</p>
-      <p>디지털미디어콘텐츠 <span>+ 디인예 =</span> UX 디자이너</p>
-      <p>국어국문학 <span>+ 디인예 =</span> 게임 컨설턴트</p>
-      <p>콘텐츠IT <span>+ 디인예 =</span> 풀스택 개발자</p>
-      <p>사회학 <span>+ 디인예 =</span> 웹소설 PD</p>
-      <p>정치행정학 <span>+ 디인예 =</span> 비주얼 디자이너</p>
-      <p>심리학 <span>+ 디인예 =</span> 미술 작가</p>
+  <section class="wrap" id="plus">
+    <p class="label mono rv">+ DIINYE =</p>
+    <p class="eq rv" aria-live="polite"><span class="slot" id="eqA">빅데이터</span> <span class="plus">+ 디인예 =</span><br><span class="slot" id="eqB">자연어처리 박사과정</span></p>
+    <div class="eqlist rv" id="eqlist"></div>
+  </section>
+
+  <div class="proof" id="proof" aria-label="수상 · 논문 · 선발 기록">
+    <div class="marq" id="mq1"></div>
+    <div class="marq rev" id="mq2"></div>
+  </div>
+
+  <section class="wrap" id="symbol">
+    <p class="label mono rv">SYMBOL</p>
+    <div class="sym" id="sym" aria-hidden="true"><i></i><b></b></div>
+    <p class="symtxt rv">앞선 점.<br><span>선은 지나온 길, 점은 그보다 한 발 앞.</span></p>
+  </section>
+
+  <section class="wrap" id="download">
+    <p class="label mono rv">DOWNLOAD</p>
+    <div class="dl rv">
+      <a href="assets/diinye-brand-book.pdf" download><span class="mono">PDF · 10P</span><b>브랜드 북</b></a>
+      <a href="assets/diinye-brand-guidelines.pdf" download><span class="mono">PDF · 9P</span><b>브랜드 가이드라인</b></a>
+      <a href="assets/diinye-logo-final-silver-transparent.svg" download><span class="mono">SVG · 어두운 바탕용</span><b>워드마크</b></a>
+      <a href="assets/diinye-logo-final-ink-transparent.svg" download><span class="mono">SVG · 밝은 바탕용</span><b>워드마크</b></a>
+      <a href="assets/diinye-symbol-B-silver-transparent.svg" download><span class="mono">SVG · 어두운 바탕용</span><b>심볼</b></a>
+      <a href="assets/diinye-symbol-B-ink-transparent.svg" download><span class="mono">SVG · 밝은 바탕용</span><b>심볼</b></a>
     </div>
   </section>
 
-  <section class="row">
-    <h2>PROOF</h2>
-    <p class="dense"><em>2019</em> 한국어 NLP 툴 성능 평가 논문<i>/</i>고고학 빅데이터 분석 논문<i>/</i>스토리테마파크 공모전 최우수상<i>/</i><em>2020</em> 임베디드 SW 경진대회 산업통상자원부 장관상<i>/</i>춘천시 도시재생 BI 공모전 대상<i>/</i><em>2023</em> 디지털인문학대회 논문 포스터<i>/</i>IDEEC 논문 포스터 6편<i>/</i>KDM+ 첫 선발<i>/</i><em>2024</em> KDM+ 2년 연속<i>/</i><em>2025</em> KDM+ 3년 연속<i>/</i>캡스톤디자인·PBL 경진대회 대상<i>/</i>지역사회 문제해결 PBL·캡스톤 최우수상<i>/</i>Hallym SW Week 우수상·창의은상·혁신상<i>/</i>강원디자인전람회 특별상·입선<i>/</i>AI 에듀테크 해커톤 대상·우수상<i>/</i>한국디지털콘텐츠학회 논문경진대회 동상<i>/</i><em>2026</em> KDM+ 4년 연속<i>/</i>한국연구재단 이사장상<i>/</i>한국연구재단 이사장상<i>/</i>정선군수상<i>/</i>세계경주포럼 UIA 임팩톤 최우수상<i>/</i>Station C 글로컬 솔버톤 우수상<i>/</i>UIA 임팩톤 우수상<i>/</i>UIA 1기 한림대 대표<i>/</i>AI 로컬임팩트 포럼 최우수상<i>/</i>동해시 AI 아이디어톤 대상·최우수상·우수상<i>/</i>로컬 창업 빌드업 대상<i>/</i>로컬 창업 아이디어톤 최우수상<i>/</i>Town MICE 아이디어톤 대상·우수상<i>/</i>AI 교육 포털 공모전 대상<i>/</i>지역사회 문제해결 PBL 대상·최우수상·우수상<i>/</i>커리어 인바디 공모전 대상·우수상<i>/</i>AI·SW WEEK 정보보호 공모전 동상<i>/</i>KCEF 심포지엄 발표<i>/</i>HUSS 지산학 공모전 공감상</p>
-  </section>
-
-  <section class="row">
-    <h2>SYMBOL</h2>
-    <div>
-      <div class="sym"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt="앞선 점 심볼"></div>
-      <p class="big" style="margin-top:28px">앞선 점.</p>
-      <p class="note">선은 지나온 길, 점은 그보다 한 발 앞.</p>
-    </div>
-  </section>
-
-  <section class="row">
-    <h2>DOWNLOAD</h2>
-    <div class="dl">
-      <a href="assets/diinye-brand-book.pdf" download><b>브랜드 북</b><span>PDF · 10P</span></a>
-      <a href="assets/diinye-brand-guidelines.pdf" download><b>브랜드 가이드라인</b><span>PDF · 9P</span></a>
-      <a href="assets/diinye-logo-final-silver-transparent.svg" download><b>워드마크</b><span>SVG · 어두운 바탕용</span></a>
-      <a href="assets/diinye-logo-final-ink-transparent.svg" download><b>워드마크</b><span>SVG · 밝은 바탕용</span></a>
-      <a href="assets/diinye-symbol-B-silver-transparent.svg" download><b>심볼</b><span>SVG · 어두운 바탕용</span></a>
-      <a href="assets/diinye-symbol-B-ink-transparent.svg" download><b>심볼</b><span>SVG · 밝은 바탕용</span></a>
-    </div>
-  </section>
-
-  <footer class="mono">
+  <footer class="wrap mono">
     <p>한림대학교 디지털인문예술전공</p>
     <p>브랜드 아이덴티티 · N°19 · 2026—2</p>
   </footer>
-</div>
+</main>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 히어로 등장
+  requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('ready')));
+
+  // 원칙: 단어 단위로 쪼개기
+  const P = document.querySelector('[data-words]');
+  const wrapWords = (node, dim) => {
+    [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(t => {
+          if (!t) return;
+          if (/^\s+$/.test(t)) { frag.append(t); return; }
+          const s = document.createElement('span'); s.className = 'w' + (dim ? ' dim' : ''); s.textContent = t; frag.append(s);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1 && n.tagName !== 'BR') wrapWords(n, dim || n.classList.contains('dimgrp'));
+    });
+  };
+  wrapWords(P, false);
+  const words = [...P.querySelectorAll('.w')];
+
+  // 등장 관찰
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); if (e.target.querySelector('[data-count]')) countUp(e.target); if (e.target.id === 'sym') {} io.unobserve(e.target); }
+  }), { threshold: .18 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  const sym = document.getElementById('sym');
+  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) sym.classList.add('on'); }), { threshold: .6 }).observe(sym);
+
+  // 숫자 세기
+  function countUp(box) {
+    box.querySelectorAll('[data-count]').forEach(b => {
+      const to = +b.dataset.count, from = +(b.dataset.from || 0), suf = b.dataset.suffix || '';
+      if (reduce) { b.textContent = to + suf; return; }
+      const t0 = performance.now(), d = 1400;
+      const step = t => { const k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3);
+        b.textContent = Math.round(from + (to - from) * e) + (k === 1 ? suf : ''); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
+  }
+
+  // 스크롤: 진행 선 + 앞선 점, 원칙 단어, 기록 선
+  const bar = document.querySelector('.progress i'), dot = document.querySelector('.progress b');
+  const tl = document.querySelector('.timeline'), fill = tl.querySelector('.fill'), lead = tl.querySelector('.lead');
+  function onScroll() {
+    const h = document.documentElement, max = h.scrollHeight - innerHeight, p = max > 0 ? scrollY / max : 0;
+    const W = innerWidth * p;
+    bar.style.width = W + 'px';
+    dot.style.left = Math.min(innerWidth - 8, W + 14) + 'px';
+
+    const r = P.getBoundingClientRect();
+    const k = Math.max(0, Math.min(1, (innerHeight * .85 - r.top) / (r.height + innerHeight * .35)));
+    const n = Math.round(k * words.length);
+    words.forEach((w, i) => w.classList.toggle('lit', i < n));
+
+    const tr = tl.getBoundingClientRect(), total = tr.height - 12;
+    const prog = Math.max(0, Math.min(total, innerHeight * .6 - tr.top));
+    fill.style.height = prog + 'px';
+    lead.style.top = Math.min(total, prog + 18) + 'px';
+  }
+  addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
+
+  // + 디인예 =
+  const pairs = [['철학','디지털 마케터'],['빅데이터','자연어처리 박사과정'],['사학','머신러닝 연구원'],['영어영문학','인공지능 연구원'],['의과학융합','프랑스 공중보건 석사'],['디지털미디어콘텐츠','UX 디자이너'],['국어국문학','게임 컨설턴트'],['콘텐츠IT','풀스택 개발자'],['사회학','웹소설 PD'],['정치행정학','비주얼 디자이너'],['심리학','미술 작가']];
+  const A = document.getElementById('eqA'), B = document.getElementById('eqB'), L = document.getElementById('eqlist');
+  let cur = 1, timer;
+  const btns = pairs.map((p, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = p[0]; b.onclick = () => { show(i); restart(); }; L.append(b); return b; });
+  function show(i) {
+    cur = i; btns.forEach((b, j) => b.classList.toggle('on', j === i));
+    A.classList.add('out'); B.classList.add('out');
+    setTimeout(() => { A.textContent = pairs[i][0]; B.textContent = pairs[i][1]; A.classList.remove('out'); B.classList.remove('out'); }, reduce ? 0 : 380);
+  }
+  function restart() { clearInterval(timer); if (!reduce) timer = setInterval(() => show((cur + 1) % pairs.length), 2600); }
+  btns[cur].classList.add('on'); restart();
+
+  // 증명 흐름
+  const proof = ['한국어 NLP 툴 성능 평가 논문','고고학 빅데이터 분석 논문','산업통상자원부 장관상','춘천시 도시재생 BI 공모전 대상','디지털인문학대회 논문 포스터','IDEEC 논문 포스터 6편','KDM+ 4년 연속 선발','캡스톤디자인·PBL 경진대회 대상','강원디자인전람회 특별상','AI 에듀테크 해커톤 대상','한국디지털콘텐츠학회 논문경진대회 동상','한국연구재단 이사장상','정선군수상','세계경주포럼 UIA 임팩톤 최우수상','Station C 글로컬 솔버톤 우수상','UIA 1기 한림대 대표','AI 로컬임팩트 포럼 최우수상','동해시 AI 아이디어톤 대상','로컬 창업 빌드업 대상','Town MICE 아이디어톤 대상','AI 교육 포털 공모전 대상','지역사회 문제해결 PBL 대상','커리어 인바디 공모전 대상','KCEF 심포지엄 발표'];
+  const half = Math.ceil(proof.length / 2);
+  const fillMq = (el, arr) => { const html = arr.map(t => `<span>${t}</span>`).join(''); el.innerHTML = html + html; };
+  fillMq(document.getElementById('mq1'), proof.slice(0, half));
+  fillMq(document.getElementById('mq2'), proof.slice(half));
+})();
+</script>
 </body>
 </html>
