@@ -60,6 +60,29 @@ header.nav nav a:hover{opacity:1}
 @keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .hero{z-index:1}
 
+
+/* 메뉴 */
+.menu-btn{font:inherit;font-size:11px;letter-spacing:.08em;color:inherit;background:none;border:0;cursor:pointer;padding:6px 0;display:flex;align-items:center;gap:10px}
+.menu-btn i{display:block;width:18px;height:2px;border-radius:1px;background:currentColor;position:relative}
+.menu-btn i:after{content:"";position:absolute;right:-7px;top:-1.5px;width:5px;height:5px;border-radius:50%;background:#3D5BFF}
+#menu{position:fixed;inset:0;z-index:90;background:var(--ink);display:flex;flex-direction:column;padding:18px 32px 40px;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility 0s .5s}
+#menu.open{opacity:1;visibility:visible;transition:opacity .5s var(--ease)}
+#menu .top{display:flex;justify-content:space-between;align-items:center}
+#menu .top img{height:12px;display:block}
+#menu .close{font:inherit;font-size:11px;letter-spacing:.08em;color:var(--steel);background:none;border:0;cursor:pointer;padding:6px 0}
+#menu .close:hover{color:var(--silver)}
+#menu ol{list-style:none;margin:auto 0;padding:0;display:grid;gap:clamp(6px,1.4vh,14px)}
+#menu li{overflow:hidden}
+#menu a{display:inline-flex;align-items:baseline;gap:18px;font-size:clamp(28px,4.6vw,58px);font-weight:800;letter-spacing:-.045em;line-height:1.15;color:#3A3E45;transform:translateY(110%);transition:color .25s,transform .8s var(--ease)}
+#menu.open a{transform:none}
+#menu li:nth-child(2) a{transition-delay:0s,.04s}#menu li:nth-child(3) a{transition-delay:0s,.08s}#menu li:nth-child(4) a{transition-delay:0s,.12s}#menu li:nth-child(5) a{transition-delay:0s,.16s}#menu li:nth-child(6) a{transition-delay:0s,.2s}#menu li:nth-child(7) a{transition-delay:0s,.24s}
+#menu a small{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--steel);transform:translateY(-1.4em)}
+#menu a:hover,#menu a:focus-visible,#menu a[aria-current]{color:var(--silver)}
+#menu a b{width:.24em;height:.24em;border-radius:50%;background:#3D5BFF;align-self:center;margin-left:.1em;opacity:0;transform:translateX(-.6em);transition:opacity .3s,transform .5s var(--ease)}
+#menu a:hover b,#menu a:focus-visible b,#menu a[aria-current] b{opacity:1;transform:none}
+#menu .foot{display:flex;justify-content:space-between;font-size:11px;color:var(--steel)}
+@media (max-width:600px){#menu{padding:16px 16px 28px}}
+
 /* 공통 등장 */
 .rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .rv.on{opacity:1;transform:none}
@@ -179,12 +202,8 @@ body.locked{overflow:hidden}
 <div class="progress" aria-hidden="true"><i></i><b></b></div>
 
 <header class="nav mono">
-  <a href="#top" aria-label="맨 위로"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt=""></a>
-  <nav>
-    <a class="opt" href="#who">우리는</a>
-    <a class="opt" href="#record">기록</a>
-    <a href="#download">내려받기</a>
-  </nav>
+  <a href="index.html#top" aria-label="처음으로"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt=""></a>
+  <button class="menu-btn mono" type="button" aria-label="메뉴 열기">MENU <i></i></button>
 </header>
 
 <main id="top" style="position:relative">
@@ -394,6 +413,22 @@ body.locked{overflow:hidden}
   const fillMq = (el, arr) => { const html = arr.map(t => `<span>${t}</span>`).join(''); el.innerHTML = html + html; };
   fillMq(document.getElementById('mq1'), proof.slice(0, half));
   fillMq(document.getElementById('mq2'), proof.slice(half));
+})();
+</script>
+<div id="menu" role="dialog" aria-modal="true" aria-label="메뉴" aria-hidden="true">
+  <div class="top mono"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt=""><button class="close" type="button">CLOSE ✕</button></div>
+  <ol><li><a href="index.html#top" aria-current="page"><small>01</small>처음<b></b></a></li><li><a href="index.html#who"><small>02</small>우리는<b></b></a></li><li><a href="index.html#record"><small>03</small>기록<b></b></a></li><li><a href="index.html#plus"><small>04</small>+ 디인예 =<b></b></a></li><li><a href="book.html"><small>05</small>브랜드 북<b></b></a></li><li><a href="guide.html"><small>06</small>브랜드 가이드라인<b></b></a></li><li><a href="index.html#download"><small>07</small>내려받기<b></b></a></li></ol>
+  <div class="foot mono"><p>한림대학교 디지털인문예술전공</p><p>N°19 · 2026—2</p></div>
+</div>
+<script>
+(() => {
+  const m = document.getElementById('menu'), btn = document.querySelector('.menu-btn');
+  const open = () => { m.classList.add('open'); m.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; m.querySelector('.close').focus(); };
+  const close = () => { m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; btn.focus(); };
+  btn.addEventListener('click', open);
+  m.querySelector('.close').addEventListener('click', close);
+  m.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && m.classList.contains('open')) close(); });
 })();
 </script>
 </body>

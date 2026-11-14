@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>브랜드 가이드라인 — 디인예</title>
+<meta name="description" content="먼저 와 있던 곳. 먼저 가 있을 곳. — 한림대학교 디지털인문예술전공 브랜드 아이덴티티">
+<link rel="icon" href="assets/diinye-symbol-B-ink-transparent.svg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ink:#0D0E10;--silver:#E9EBEE;--steel:#8A8F98;--hair:#24272D;--volt:#3D5BFF;--ease:cubic-bezier(.2,.7,.1,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);scroll-behavior:smooth}
+body{background:var(--ink);color:var(--silver);font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+
+/* 진행 선: 스크롤만큼 선이 자라고, 점은 언제나 한 발 앞 */
+.progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:50;pointer-events:none}
+.progress i{position:absolute;left:0;top:0;height:3px;width:0;background:var(--silver);border-radius:2px}
+.progress b{position:absolute;top:-2.5px;width:8px;height:8px;border-radius:50%;background:var(--volt);left:0}
+
+header.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:18px 32px;mix-blend-mode:difference}
+header.nav img{height:12px;display:block}
+header.nav nav{display:flex;gap:22px;font-size:11px}
+header.nav nav a{opacity:.75;transition:opacity .2s}
+header.nav nav a:hover{opacity:1}
+@media (max-width:600px){header.nav{padding:16px}header.nav nav a.opt{display:none}}
+
+/* 히어로 */
+.hero{height:100svh;min-height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:1}
+.logo{position:relative;width:min(44vw,580px);aspect-ratio:1184.82/288.6;transform:translateX(6.8%)}
+@media (max-width:600px){.logo{width:70vw}}
+.logo svg{width:100%;height:100%;display:block;overflow:visible}
+.logo .gl,.logo .dot{transform-box:fill-box}
+.logo .gl{opacity:0;transform:translateY(18%);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.logo .dot{opacity:0;transform:translateX(-140%);transition:transform 1.2s var(--ease) .75s,opacity .4s .75s}
+.ready .logo .gl{opacity:1;transform:none}
+.ready .logo .gl:nth-child(2){transition-delay:.12s}
+.ready .logo .gl:nth-child(3){transition-delay:.24s}
+.ready .logo .dot{opacity:1;transform:none}
+.slogan{font-size:clamp(17px,1.8vw,26px);font-weight:800;letter-spacing:-.04em;line-height:1.25;margin-top:5vh;opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease) 1.2s,transform 1s var(--ease) 1.2s}
+.slogan span{color:var(--steel);font-weight:400}
+.ready .slogan{opacity:1;transform:none}
+.cue{position:absolute;left:0;right:0;bottom:5vh;font-size:11px;color:var(--steel);opacity:0;transition:opacity 1s 2s}
+.ready .cue{opacity:1}
+@media (max-width:600px){.cue{display:none}}
+
+
+/* 히어로 뒤: 지난 전시 포스터가 흐름 */
+.archive{position:absolute;left:0;right:0;top:0;height:100svh;min-height:560px;overflow:hidden;z-index:0;pointer-events:none;opacity:0;transition:opacity 2s var(--ease) .3s}
+.ready .archive{opacity:1}
+.archive .row{display:flex;gap:18px;width:max-content;animation:drift 120s linear infinite;margin-bottom:18px}
+.archive .row.rev{animation-direction:reverse;animation-duration:150s}
+.archive img{height:calc(50svh - 9px);min-height:270px;aspect-ratio:520/737;object-fit:cover;display:block;opacity:.2;border-radius:2px;filter:contrast(1.1)}
+.archive:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 52%,rgba(13,14,16,.82) 0%,rgba(13,14,16,.55) 60%,rgba(13,14,16,.35) 100%),linear-gradient(180deg,transparent 70%,var(--ink) 100%)}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero{z-index:1}
+
+
+/* 메뉴 */
+.menu-btn{font:inherit;font-size:11px;letter-spacing:.08em;color:inherit;background:none;border:0;cursor:pointer;padding:6px 0;display:flex;align-items:center;gap:10px}
+.menu-btn i{display:block;width:18px;height:2px;border-radius:1px;background:currentColor;position:relative}
+.menu-btn i:after{content:"";position:absolute;right:-7px;top:-1.5px;width:5px;height:5px;border-radius:50%;background:#3D5BFF}
+#menu{position:fixed;inset:0;z-index:90;background:var(--ink);display:flex;flex-direction:column;padding:18px 32px 40px;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility 0s .5s}
+#menu.open{opacity:1;visibility:visible;transition:opacity .5s var(--ease)}
+#menu .top{display:flex;justify-content:space-between;align-items:center}
+#menu .top img{height:12px;display:block}
+#menu .close{font:inherit;font-size:11px;letter-spacing:.08em;color:var(--steel);background:none;border:0;cursor:pointer;padding:6px 0}
+#menu .close:hover{color:var(--silver)}
+#menu ol{list-style:none;margin:auto 0;padding:0;display:grid;gap:clamp(6px,1.4vh,14px)}
+#menu li{overflow:hidden}
+#menu a{display:inline-flex;align-items:baseline;gap:18px;font-size:clamp(28px,4.6vw,58px);font-weight:800;letter-spacing:-.045em;line-height:1.15;color:#3A3E45;transform:translateY(110%);transition:color .25s,transform .8s var(--ease)}
+#menu.open a{transform:none}
+#menu li:nth-child(2) a{transition-delay:0s,.04s}#menu li:nth-child(3) a{transition-delay:0s,.08s}#menu li:nth-child(4) a{transition-delay:0s,.12s}#menu li:nth-child(5) a{transition-delay:0s,.16s}#menu li:nth-child(6) a{transition-delay:0s,.2s}#menu li:nth-child(7) a{transition-delay:0s,.24s}
+#menu a small{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--steel);transform:translateY(-1.4em)}
+#menu a:hover,#menu a:focus-visible,#menu a[aria-current]{color:var(--silver)}
+#menu a b{width:.24em;height:.24em;border-radius:50%;background:#3D5BFF;align-self:center;margin-left:.1em;opacity:0;transform:translateX(-.6em);transition:opacity .3s,transform .5s var(--ease)}
+#menu a:hover b,#menu a:focus-visible b,#menu a[aria-current] b{opacity:1;transform:none}
+#menu .foot{display:flex;justify-content:space-between;font-size:11px;color:var(--steel)}
+@media (max-width:600px){#menu{padding:16px 16px 28px}}
+
+/* 공통 등장 */
+.rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.label{font-size:11px;color:var(--steel);margin-bottom:28px;display:flex;gap:14px;align-items:center}
+.label:before{content:"";width:28px;height:2px;border-radius:1px;background:var(--steel)}
+
+section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
+@media (max-width:600px){section.wrap{padding-top:14vh;padding-bottom:14vh}}
+
+/* 원칙: 스크롤에 따라 단어가 밝아짐 */
+.principle p{font-size:clamp(30px,5.4vw,76px);font-weight:800;letter-spacing:-.05em;line-height:1.08}
+.principle .w{color:#2A2D33;transition:color .5s}
+.principle .w.lit{color:var(--silver)}
+.principle .w.dim.lit{color:var(--steel)}
+
+/* 우리는 */
+.who{display:grid;gap:12vh}
+.who .q{font-size:11px;color:var(--steel);margin-bottom:12px}
+.who .a{font-size:clamp(24px,3.6vw,46px);font-weight:800;letter-spacing:-.045em;line-height:1.12}
+
+/* 숫자 */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hair)}
+.nums div{padding:36px 0 40px;border-bottom:1px solid var(--hair)}
+.nums div:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid var(--hair)}
+.nums b{display:block;font:500 clamp(40px,5vw,68px)/1 "IBM Plex Mono",monospace;letter-spacing:-.03em}
+.nums span{display:block;color:var(--steel);font-size:14px;margin-top:14px}
+@media (max-width:700px){.nums{grid-template-columns:1fr 1fr}.nums div:not(:nth-child(3n+1)){padding-left:0;border-left:0}.nums div:nth-child(even){padding-left:20px;border-left:1px solid var(--hair)}}
+
+/* 기록: 선이 내려가고 점이 앞서감 */
+.timeline{position:relative;padding-left:56px}
+.timeline .rail{position:absolute;left:10px;top:6px;bottom:6px;width:3px;background:var(--hair);border-radius:2px}
+.timeline .fill{position:absolute;left:10px;top:6px;width:3px;height:0;background:var(--silver);border-radius:2px}
+.timeline .lead{position:absolute;left:5.5px;width:12px;height:12px;border-radius:50%;background:var(--volt);top:0}
+.timeline li{list-style:none;display:grid;grid-template-columns:90px 1fr;gap:20px;padding:22px 0;font-size:clamp(15px,1.5vw,18px);letter-spacing:-.02em;border-bottom:1px solid var(--hair)}
+.timeline li .y{font:400 14px "IBM Plex Mono",monospace;color:var(--steel);padding-top:4px}
+@media (max-width:600px){.timeline{padding-left:36px}.timeline li{grid-template-columns:52px 1fr;gap:12px}}
+
+/* 트랙 */
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hair)}
+.tracks a{display:block;padding:36px 28px 44px 0;border-bottom:1px solid var(--hair);transition:background .4s}
+.tracks a+a{padding-left:28px;border-left:1px solid var(--hair)}
+.tracks b{display:block;font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-.04em;margin-bottom:14px}
+.tracks p{color:var(--steel);font-size:15px;max-width:22em}
+.tracks a:hover b{color:var(--silver)}
+@media (max-width:700px){.tracks{grid-template-columns:1fr}.tracks a+a{padding-left:0;border-left:0}}
+
+/* + 디인예 = */
+.eq{font-size:clamp(24px,3.8vw,52px);font-weight:800;letter-spacing:-.045em;line-height:1.15;min-height:2.4em}
+.eq .plus{color:var(--steel);font-weight:400}
+.eq .slot{display:inline-block;transition:opacity .7s var(--ease),transform .9s var(--ease),filter .7s var(--ease)}
+.eq #eqB{transition-delay:.12s}
+.eq .slot.out{opacity:0;transform:translateY(-.22em);filter:blur(8px)}
+.eq .slot.pre{opacity:0;transform:translateY(.22em);filter:blur(8px);transition:none}
+.eqlist{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px}
+.eqlist button{font:inherit;font-size:13px;color:var(--steel);background:none;border:1px solid var(--hair);border-radius:999px;padding:6px 14px;cursor:pointer;transition:all .25s}
+.eqlist button:hover,.eqlist button.on{color:var(--silver);border-color:var(--steel)}
+
+/* 증명: 두 줄이 반대로 흐름 */
+.proof{padding:18vh 0;overflow:hidden}
+.marq{display:flex;width:max-content;gap:0;white-space:nowrap;font-size:clamp(16px,1.7vw,24px);font-weight:700;letter-spacing:-.03em;animation:mq 90s linear infinite}
+.marq.rev{animation-direction:reverse;color:var(--steel);font-weight:400;margin-top:18px}
+.marq span{padding-right:1.1em}
+.marq span:after{content:"/";color:#3A3E45;padding-left:1.1em;font-weight:400}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.proof:hover .marq{animation-play-state:paused}
+
+/* 심볼 */
+.sym{display:flex;align-items:center;height:clamp(60px,9vw,110px);margin-bottom:48px}
+.sym i{height:44%;width:0;background:var(--silver);border-radius:999px;transition:width 1.4s var(--ease)}
+.sym b{flex:none;height:54%;aspect-ratio:1;border-radius:50%;background:var(--volt);margin-left:6%;opacity:0;transform:translateX(-60px);transition:opacity .6s 1.1s,transform 1.2s var(--ease) 1.1s}
+.sym.on i{width:62%}
+.sym.on b{opacity:1;transform:none}
+.symtxt{font-size:clamp(24px,3.2vw,40px);font-weight:800;letter-spacing:-.045em;line-height:1.15}
+.symtxt span{color:var(--steel);font-weight:400}
+
+/* 내려받기 */
+.dl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dl a{display:flex;flex-direction:column;justify-content:space-between;min-height:170px;padding:22px;border:1px solid var(--hair);border-radius:14px;transition:border-color .25s,transform .25s var(--ease)}
+.dl a:hover,.dl a:focus-visible{border-color:var(--steel);transform:translateY(-3px)}
+.dl a b{font-size:19px;letter-spacing:-.03em}
+.dl a span{font-size:11px;color:var(--steel)}
+@media (max-width:800px){.dl{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.dl{grid-template-columns:1fr}}
+
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:28px 0 56px;border-top:1px solid var(--hair);font-size:11px;color:var(--steel)}
+
+
+/* 첫 화면: 먹 화면에 파란 점 하나 */
+#intro{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;align-items:center;justify-content:center;transition:opacity .9s var(--ease),visibility 0s .9s}
+#intro.gone{opacity:0;visibility:hidden}
+#intro button{position:relative;width:28px;height:28px;border:0;background:none;cursor:pointer;padding:0}
+#intro .dt{position:absolute;inset:0;border-radius:50%;background:var(--silver);animation:breathe 2.4s ease-in-out infinite;transition:background .5s var(--ease)}
+#intro .rp{position:absolute;left:50%;top:50%;width:28px;height:28px;transform:translate(-50%,-50%);border-radius:50%;border:1px solid var(--volt);opacity:0;pointer-events:none}
+#intro.go .dt{animation:pop .7s var(--ease) forwards;background:var(--volt)}
+#intro.go .rp{animation:ripple 1.5s cubic-bezier(.15,.6,.3,1) forwards}
+#intro.go .rp:nth-child(2){animation-delay:.2s}
+#intro.go .rp:nth-child(3){animation-delay:.4s}
+#intro.go .rp:nth-child(4){animation-delay:.6s}
+@keyframes ripple{0%{width:28px;height:28px;opacity:.85}100%{width:420px;height:420px;opacity:0}}
+@keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.35)}100%{transform:scale(1)}}
+#intro button:focus-visible{outline:1px solid var(--steel);outline-offset:10px;border-radius:50%}
+#intro p{position:absolute;bottom:8vh;left:0;right:0;text-align:center;font-size:11px;color:var(--steel);transition:opacity .4s}
+#intro.go p{opacity:0}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+body.locked{overflow:hidden}
+
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{transition:none!important;animation:none!important}
+  .rv,.logo .gl,.logo .dot,.slogan,.cue{opacity:1!important;transform:none!important}
+  .sym i{width:62%}.sym b{opacity:1;transform:none}
+  .archive{opacity:1!important}
+}
+</style>
+<style>
+.vhead{padding:20vh 0 10vh;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--hair)}
+.vhead h1{font-size:clamp(34px,5vw,64px);font-weight:800;letter-spacing:-.045em;line-height:1.1}
+.vhead p{color:var(--steel);font-size:15px;margin-top:12px}
+.vhead a{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--hair);border-radius:999px;padding:10px 18px;font-size:12px;transition:border-color .25s}
+.vhead a:hover{border-color:var(--steel)}
+.pages{display:grid;gap:40px;padding:10vh 0 16vh;justify-items:center}
+.pages figure{width:min(100%,640px);margin:0}
+.pages img{width:100%;height:auto;display:block;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.55);background:#16181C}
+.pages figcaption{font-size:11px;color:var(--steel);margin-top:12px}
+.pages.two{grid-template-columns:repeat(2,minmax(0,560px));justify-content:center;column-gap:24px}
+@media (max-width:900px){.pages.two{grid-template-columns:minmax(0,640px)}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><i></i><b></b></div>
+<header class="nav mono">
+  <a href="index.html#top" aria-label="처음으로"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt=""></a>
+  <button class="menu-btn mono" type="button" aria-label="메뉴 열기">MENU <i></i></button>
+</header>
+<main class="wrap">
+  <div class="vhead">
+    <div><p class="label mono" style="margin-bottom:18px">GUIDE</p><h1>브랜드 가이드라인</h1><p>디인예의 이름과 기호를 쓰는 사람을 위한 안내. 심볼, 워드마크, 색, 글꼴, 여백, 하지 말 것.</p></div>
+    <a href="assets/diinye-brand-guidelines.pdf" download class="mono">PDF 내려받기 ↓</a>
+  </div>
+  <div class="pages"><figure class="rv"><img src="assets/guide/01.webp" alt="브랜드 가이드라인 1쪽" loading="eager" width="759" height="1075"><figcaption class="mono">01 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/02.webp" alt="브랜드 가이드라인 2쪽" loading="eager" width="759" height="1075"><figcaption class="mono">02 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/03.webp" alt="브랜드 가이드라인 3쪽" loading="lazy" width="759" height="1075"><figcaption class="mono">03 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/04.webp" alt="브랜드 가이드라인 4쪽" loading="lazy" width="759" height="1075"><figcaption class="mono">04 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/05.webp" alt="브랜드 가이드라인 5쪽" loading="lazy" width="759" height="1075"><figcaption class="mono">05 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/06.webp" alt="브랜드 가이드라인 6쪽" loading="lazy" width="759" height="1075"><figcaption class="mono">06 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/07.webp" alt="브랜드 가이드라인 7쪽" loading="lazy" width="759" height="1075"><figcaption class="mono">07 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/08.webp" alt="브랜드 가이드라인 8쪽" loading="lazy" width="759" height="1075"><figcaption class="mono">08 / 09</figcaption></figure><figure class="rv"><img src="assets/guide/09.webp" alt="브랜드 가이드라인 9쪽" loading="lazy" width="759" height="1075"><figcaption class="mono">09 / 09</figcaption></figure></div>
+  <footer class="mono"><p>한림대학교 디지털인문예술전공</p><p>브랜드 아이덴티티 · N°19 · 2026—2</p></footer>
+</main>
+<div id="menu" role="dialog" aria-modal="true" aria-label="메뉴" aria-hidden="true">
+  <div class="top mono"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt=""><button class="close" type="button">CLOSE ✕</button></div>
+  <ol><li><a href="index.html#top"><small>01</small>처음<b></b></a></li><li><a href="index.html#who"><small>02</small>우리는<b></b></a></li><li><a href="index.html#record"><small>03</small>기록<b></b></a></li><li><a href="index.html#plus"><small>04</small>+ 디인예 =<b></b></a></li><li><a href="book.html"><small>05</small>브랜드 북<b></b></a></li><li><a href="guide.html" aria-current="page"><small>06</small>브랜드 가이드라인<b></b></a></li><li><a href="index.html#download"><small>07</small>내려받기<b></b></a></li></ol>
+  <div class="foot mono"><p>한림대학교 디지털인문예술전공</p><p>N°19 · 2026—2</p></div>
+</div>
+<script>
+(() => {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .08 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  const bar = document.querySelector('.progress i'), dot = document.querySelector('.progress b');
+  const on = () => { const max = document.documentElement.scrollHeight - innerHeight, p = max > 0 ? scrollY / max : 0, W = innerWidth * p;
+    bar.style.width = W + 'px'; dot.style.left = Math.min(innerWidth - 8, W + 14) + 'px'; };
+  addEventListener('scroll', on, { passive: true }); addEventListener('resize', on); on();
+})();
+</script>
+<script>
+(() => {
+  const m = document.getElementById('menu'), btn = document.querySelector('.menu-btn');
+  const open = () => { m.classList.add('open'); m.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; m.querySelector('.close').focus(); };
+  const close = () => { m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; btn.focus(); };
+  btn.addEventListener('click', open);
+  m.querySelector('.close').addEventListener('click', close);
+  m.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && m.classList.contains('open')) close(); });
+})();
+</script>
+</body>
+</html>
