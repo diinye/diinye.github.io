@@ -151,10 +151,14 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 #intro{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;align-items:center;justify-content:center;transition:opacity .9s var(--ease),visibility 0s .9s}
 #intro.gone{opacity:0;visibility:hidden}
 #intro button{position:relative;width:28px;height:28px;border:0;background:none;cursor:pointer;padding:0}
-#intro .dt{position:absolute;left:0;top:0;width:28px;height:28px;border-radius:14px;background:var(--silver);animation:breathe 2.4s ease-in-out infinite;transition:width 1s var(--ease),height .5s var(--ease),top .5s var(--ease)}
-#intro .ln{position:absolute;left:222px;top:0;width:28px;height:28px;border-radius:50%;background:var(--volt);opacity:0;transform:scale(.3);transition:opacity .4s .7s,transform .8s var(--ease) .7s}
-#intro.go .dt{animation:none;width:190px;height:23px;top:2.5px}
-#intro.go .ln{opacity:1;transform:none}
+#intro .dt{position:absolute;inset:0;border-radius:50%;background:var(--silver);animation:breathe 2.4s ease-in-out infinite;transition:background .5s var(--ease)}
+#intro .rp{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--volt);opacity:0;pointer-events:none}
+#intro.go .dt{animation:pop .7s var(--ease) forwards;background:var(--volt)}
+#intro.go .rp{animation:ripple 1.5s cubic-bezier(.15,.6,.3,1) forwards}
+#intro.go .rp:nth-child(2){animation-delay:.2s}
+#intro.go .rp:nth-child(3){animation-delay:.4s}
+@keyframes ripple{0%{transform:scale(1);opacity:.9}100%{transform:scale(11);opacity:0}}
+@keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.35)}100%{transform:scale(1)}}
 #intro button:focus-visible{outline:1px solid var(--steel);outline-offset:10px;border-radius:50%}
 #intro p{position:absolute;bottom:8vh;left:0;right:0;text-align:center;font-size:11px;color:var(--steel);transition:opacity .4s}
 #intro.go p{opacity:0}
@@ -170,7 +174,7 @@ body.locked{overflow:hidden}
 </style>
 </head>
 <body class="locked">
-<div id="intro"><button type="button" aria-label="디인예로 들어가기"><i class="ln"></i><b class="dt"></b></button><p class="mono">CLICK THE DOT</p></div>
+<div id="intro"><button type="button" aria-label="디인예로 들어가기"><i class="rp"></i><i class="rp"></i><i class="rp"></i><b class="dt"></b></button><p class="mono">CLICK THE DOT</p></div>
 <div class="progress" aria-hidden="true"><i></i><b></b></div>
 
 <header class="nav mono">
