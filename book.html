@@ -80,6 +80,7 @@ header.nav nav a:hover{opacity:1}
 #menu a:hover,#menu a:focus-visible,#menu a[aria-current]{color:var(--silver)}
 #menu a b{width:.24em;height:.24em;border-radius:50%;background:#3D5BFF;align-self:center;margin-left:.1em;opacity:0;transform:translateX(-.6em);transition:opacity .3s,transform .5s var(--ease)}
 #menu a:hover b,#menu a:focus-visible b,#menu a[aria-current] b{opacity:1;transform:none}
+#menu .mlink{color:var(--steel);transition:color .2s}#menu .mlink:hover{color:var(--silver)}
 #menu .foot{display:flex;justify-content:space-between;font-size:11px;color:var(--steel)}
 @media (max-width:600px){#menu{padding:16px 16px 28px}}
 
@@ -200,7 +201,7 @@ body.locked{overflow:hidden}
 .vhead{padding:20vh 0 10vh;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--hair)}
 .vhead h1{font-size:clamp(34px,5vw,64px);font-weight:800;letter-spacing:-.045em;line-height:1.1}
 .vhead p{color:var(--steel);font-size:15px;margin-top:12px}
-.vhead a{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--hair);border-radius:999px;padding:10px 18px;font-size:12px;transition:border-color .25s}
+.vhead a{font-family:Pretendard,sans-serif;letter-spacing:0;display:inline-flex;align-items:center;gap:10px;border:1px solid var(--hair);border-radius:999px;padding:10px 18px;font-size:12px;transition:border-color .25s}
 .vhead a:hover{border-color:var(--steel)}
 .pages{display:grid;gap:40px;padding:10vh 0 16vh;justify-items:center}
 .pages figure{width:min(100%,640px);margin:0}
@@ -226,8 +227,8 @@ body.locked{overflow:hidden}
 </main>
 <div id="menu" role="dialog" aria-modal="true" aria-label="메뉴" aria-hidden="true">
   <div class="top mono"><img src="assets/diinye-symbol-B-silver-transparent.svg" alt=""><button class="close" type="button">CLOSE ✕</button></div>
-  <ol><li><a href="index.html#top"><small>01</small>처음<b></b></a></li><li><a href="index.html#who"><small>02</small>우리는<b></b></a></li><li><a href="index.html#record"><small>03</small>기록<b></b></a></li><li><a href="index.html#plus"><small>04</small>+ 디인예 =<b></b></a></li><li><a href="logo.html"><small>05</small>로고<b></b></a></li><li><a href="book.html" aria-current="page"><small>06</small>브랜드 북<b></b></a></li><li><a href="guide.html"><small>07</small>브랜드 가이드라인<b></b></a></li><li><a href="type.html"><small>08</small>디인예 서체<b></b></a></li><li><a href="index.html#download"><small>09</small>내려받기<b></b></a></li></ol>
-  <div class="foot mono"><p>한림대학교 디지털인문예술전공</p><p>N°19 · 2026—2</p></div>
+  <ol><li><a href="index.html#top"><small>01</small>디인예<b></b></a></li><li><a href="logo.html"><small>02</small>로고<b></b></a></li><li><a href="type.html"><small>03</small>디인예 서체<b></b></a></li><li><a href="book.html" aria-current="page"><small>04</small>브랜드 북<b></b></a></li><li><a href="guide.html"><small>05</small>브랜드 가이드라인<b></b></a></li></ol>
+  <div class="foot mono"><p>한림대학교 디지털인문예술전공</p><a href="index.html#download" class="mlink">DOWNLOAD ↓</a></div>
 </div>
 <script>
 (() => {
