@@ -73,13 +73,13 @@ header.nav nav a:hover{opacity:1}
 #menu .close:hover{color:var(--silver)}
 #menu ol{list-style:none;margin:auto 0;padding:0;display:grid;gap:clamp(6px,1.4vh,14px)}
 #menu li{overflow:hidden}
-#menu a{display:inline-flex;align-items:baseline;gap:18px;font-size:clamp(28px,4.6vw,58px);font-weight:800;letter-spacing:-.045em;line-height:1.15;color:#3A3E45;transform:translateY(110%);transition:color .25s,transform .8s var(--ease)}
-#menu.open a{transform:none}
+#menu ol a{display:inline-flex;align-items:baseline;gap:18px;font-size:clamp(28px,4.6vw,58px);font-weight:800;letter-spacing:-.045em;line-height:1.15;color:#3A3E45;transform:translateY(110%);transition:color .25s,transform .8s var(--ease)}
+#menu.open ol a{transform:none}
 #menu li:nth-child(2) a{transition-delay:0s,.04s}#menu li:nth-child(3) a{transition-delay:0s,.08s}#menu li:nth-child(4) a{transition-delay:0s,.12s}#menu li:nth-child(5) a{transition-delay:0s,.16s}#menu li:nth-child(6) a{transition-delay:0s,.2s}#menu li:nth-child(7) a{transition-delay:0s,.24s}#menu li:nth-child(8) a{transition-delay:0s,.28s}#menu li:nth-child(9) a{transition-delay:0s,.32s}
-#menu a small{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--steel);transform:translateY(-1.4em)}
-#menu a:hover,#menu a:focus-visible,#menu a[aria-current]{color:var(--silver)}
-#menu a b{width:.24em;height:.24em;border-radius:50%;background:#3D5BFF;align-self:center;margin-left:.1em;opacity:0;transform:translateX(-.6em);transition:opacity .3s,transform .5s var(--ease)}
-#menu a:hover b,#menu a:focus-visible b,#menu a[aria-current] b{opacity:1;transform:none}
+#menu ol a small{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--steel);transform:translateY(-1.4em)}
+#menu ol a:hover,#menu ol a:focus-visible,#menu ol a[aria-current]{color:var(--silver)}
+#menu ol a b{width:.24em;height:.24em;border-radius:50%;background:#3D5BFF;align-self:center;margin-left:.1em;opacity:0;transform:translateX(-.6em);transition:opacity .3s,transform .5s var(--ease)}
+#menu ol a:hover b,#menu ol a:focus-visible b,#menu ol a[aria-current] b{opacity:1;transform:none}
 #menu .mlink{color:var(--steel);transition:color .2s}#menu .mlink:hover{color:var(--silver)}
 #menu .foot{display:flex;justify-content:space-between;font-size:11px;color:var(--steel)}
 @media (max-width:600px){#menu{padding:16px 16px 28px}}
