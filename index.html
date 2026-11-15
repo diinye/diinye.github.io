@@ -164,7 +164,9 @@ section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
 .symtxt span{color:var(--steel);font-weight:400}
 
 /* 마무리 */
-.closing{min-height:80svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+section.wrap.closing{min-height:100svh;padding-top:55vh;padding-bottom:35vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.cl.rv{transform:translateY(18px);transition:opacity 1.8s var(--ease),transform 1.8s var(--ease)}
+.cl.dim.rv{transition-delay:.6s}
 .cl{font-size:clamp(28px,4.4vw,60px);font-weight:800;letter-spacing:-.045em;line-height:1.2}
 .cl.dim{color:var(--steel);font-weight:400;transition-delay:.35s}
 .cdot{display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--volt);margin-left:.08em;vertical-align:baseline;opacity:0;transform:translateX(-.5em);transition:opacity .6s 1.1s,transform 1s var(--ease) 1.1s}
@@ -302,8 +304,8 @@ body.locked{overflow:hidden}
   </section>
 
   <section class="wrap closing" id="closing">
-    <p class="cl rv">개척했고, 도전했고, 증명했다.</p>
-    <p class="cl dim rv">그리고 다시, 먼저 간다<span class="cdot"></span></p>
+    <p class="cl rvc rv">개척했고, 도전했고, 증명했다.</p>
+    <p class="cl dim rvc rv">그리고 다시, 먼저 간다<span class="cdot"></span></p>
   </section>
 
   <section class="wrap" id="download">
@@ -371,7 +373,9 @@ body.locked{overflow:hidden}
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('on'); if (e.target.querySelector('[data-count]')) countUp(e.target); if (e.target.id === 'sym') {} io.unobserve(e.target); }
   }), { threshold: .18 });
-  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  document.querySelectorAll('.rv:not(.rvc)').forEach(el => io.observe(el));
+  const ioc = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ioc.unobserve(e.target); } }), { rootMargin: '-38% 0px -38% 0px' });
+  document.querySelectorAll('.rvc').forEach(el => ioc.observe(el));
   const sym = document.getElementById('sym');
   new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) sym.classList.add('on'); }), { threshold: .6 }).observe(sym);
 
