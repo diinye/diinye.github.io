@@ -214,6 +214,8 @@ body.locked{overflow:hidden}
 .reader{padding:6vh 0 4vh;user-select:none}
 .stage{position:relative;margin:0 auto;perspective:2400px;aspect-ratio:var(--ar);width:min(100%, calc((100svh - 230px) * var(--arw)))}
 .stage .slot{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
+.stage .slot{background:#0D0E10}.leaf .face{background:#0D0E10}
+.stage .slot.empty{background:transparent}
 .stage .slot.l{left:0}.stage .slot.r{right:0}
 .stage .slot img,.leaf img{width:100%;height:100%;object-fit:cover;display:block}
 .stage .slot.l img{box-shadow:inset -30px 0 40px rgba(0,0,0,.25)}
@@ -295,11 +297,20 @@ body.locked{overflow:hidden}
   const leaf = st.querySelector('.leaf'), lf = leaf.querySelector('.front img'), lb = leaf.querySelector('.back img');
   const prevB = document.querySelector('.rbar .prev'), nextB = document.querySelector('.rbar .next'), cnt = document.querySelector('.rbar .count');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let single = false, s = 0, busy = false;
-  // 펼침면: [표지 혼자], [2,3], [4,5] ... 마지막이 홀수면 혼자
-  const spreads = () => { const a = [[null, 1]]; for (let i = 2; i <= N; i += 2) a.push([i, i + 1 <= N ? i + 1 : null]); return a; };
-  let SP = spreads();
-  const set = (img, i) => { if (i) { img.src = src(i); img.style.visibility = 'visible'; } else { img.removeAttribute('src'); img.style.visibility = 'hidden'; } };
+  const pad = n => String(n).padStart(2, '0');
+  let single = false, s = 0, busy = false, SP = [];
+  // 펼침면: 표지는 오른쪽에 혼자, 표지를 넘기면 왼쪽은 검은 면(표지 안쪽), 마지막 뒤표지는 왼쪽에 혼자
+  function build() {
+    if (single) { SP = []; for (let i = 1; i <= N; i++) SP.push([null, i]); return; }
+    const seq = [1, 'B']; for (let i = 2; i <= N; i++) seq.push(i);
+    SP = [[null, seq[0]]];
+    for (let k = 1; k < seq.length; k += 2) SP.push([seq[k], seq[k + 1] ?? null]);
+  }
+  const set = (img, v) => {
+    if (v && v !== 'B') { img.src = src(v); img.style.visibility = 'visible'; }
+    else { img.removeAttribute('src'); img.style.visibility = 'hidden'; }
+    img.parentElement.classList.toggle('empty', !v);
+  };
   function layout() {
     single = innerWidth < 760;
     st.classList.toggle('single', single);
@@ -307,15 +318,16 @@ body.locked{overflow:hidden}
     document.querySelectorAll('.stage,.rbar').forEach(e => e.style.setProperty('--arw', single ? (757/1073) : (1514/1073)));
   }
   function draw() {
-    if (single) { set(R, s + 1); cnt.textContent = `${String(s + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}`; prevB.disabled = s === 0; nextB.disabled = s === N - 1; return; }
     const [a, b] = SP[s]; set(L, a); set(R, b);
-    cnt.textContent = [a, b].filter(Boolean).map(v => String(v).padStart(2, '0')).join('–') + ` / ${String(N).padStart(2, '0')}`;
+    const nums = [a, b].filter(v => v && v !== 'B');
+    cnt.textContent = nums.map(pad).join('–') + ` / ${pad(N)}`;
     prevB.disabled = s === 0; nextB.disabled = s === SP.length - 1;
   }
+  const firstNum = sp => sp.find(v => v && v !== 'B') || 1;
   function go(d) {
     if (busy) return;
-    if (single) { const t = s + d; if (t < 0 || t >= N) return; s = t; draw(); R.classList.remove('fade'); void R.offsetWidth; R.classList.add('fade'); return; }
     const t = s + d; if (t < 0 || t >= SP.length) return;
+    if (single) { s = t; draw(); R.classList.remove('fade'); void R.offsetWidth; R.classList.add('fade'); return; }
     const [ca, cb] = SP[s], [na, nb] = SP[t];
     if (reduce) { s = t; draw(); return; }
     busy = true;
@@ -333,8 +345,12 @@ body.locked{overflow:hidden}
   addEventListener('keydown', e => { if (document.getElementById('menu')?.classList.contains('open')) return; if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
   let x0 = null; st.addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
   st.addEventListener('touchend', e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); x0 = null; });
-  addEventListener('resize', () => { const was = single; layout(); if (was !== single) { if (single) { const [a, b] = SP[s]; s = (a || b) - 1; } else { s = Math.floor((s + 1) / 2); } } draw(); });
-  layout(); draw();
+  addEventListener('resize', () => {
+    const was = single, cur = firstNum(SP[s] || [1]); layout();
+    if (was !== single) { build(); s = Math.max(0, SP.findIndex(sp => sp.includes(cur))); }
+    draw();
+  });
+  layout(); build(); draw();
 })();
 </script>
 </body>
