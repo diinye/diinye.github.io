@@ -198,7 +198,7 @@ body.locked{overflow:hidden}
 }
 </style>
 <style>
-.vhead{padding:20vh 0 10vh;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--hair)}
+.vhead{padding:14vh 0 4vh;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--hair)}
 .vhead h1{font-size:clamp(34px,5vw,64px);font-weight:800;letter-spacing:-.045em;line-height:1.1}
 .vhead p{color:var(--steel);font-size:15px;margin-top:12px}
 .vhead a{font-family:Pretendard,sans-serif;letter-spacing:0;display:inline-flex;align-items:center;gap:10px;border:1px solid var(--hair);border-radius:999px;padding:10px 18px;font-size:12px;transition:border-color .25s}
@@ -209,6 +209,34 @@ body.locked{overflow:hidden}
 .pages figcaption{font-size:11px;color:var(--steel);margin-top:12px}
 .pages.two{grid-template-columns:repeat(2,minmax(0,560px));justify-content:center;column-gap:24px}
 @media (max-width:900px){.pages.two{grid-template-columns:minmax(0,640px)}}
+</style>
+<style>
+.reader{padding:6vh 0 4vh;user-select:none}
+.stage{position:relative;margin:0 auto;perspective:2400px;aspect-ratio:var(--ar);width:min(100%, calc((100svh - 230px) * var(--arw)))}
+.stage .slot{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
+.stage .slot.l{left:0}.stage .slot.r{right:0}
+.stage .slot img,.leaf img{width:100%;height:100%;object-fit:cover;display:block}
+.stage .slot.l img{box-shadow:inset -30px 0 40px rgba(0,0,0,.25)}
+.stage:after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(0,0,0,.6);box-shadow:0 0 18px 6px rgba(0,0,0,.35);pointer-events:none}
+.stage.single:after{display:none}
+.stage.single .slot{width:100%}.stage.single .slot.l{display:none}
+.leaf{position:absolute;top:0;bottom:0;width:50%;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,.7,.2,1);z-index:5;display:none}
+.leaf .face{position:absolute;inset:0;backface-visibility:hidden;overflow:hidden}
+.leaf .back{transform:rotateY(180deg)}
+.leaf.fwd{left:50%;transform-origin:left center}
+.leaf.bwd{left:0;transform-origin:right center}
+.leaf .face:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25),transparent 30%);opacity:.0;transition:opacity .9s}
+.leaf.turning .face:after{opacity:1}
+.stage.single .leaf{display:none!important}
+.stage .slot img.fade{animation:fadein .5s ease}
+@keyframes fadein{from{opacity:.2}to{opacity:1}}
+.rbar{display:flex;justify-content:space-between;align-items:center;margin:22px auto 0;width:min(100%, calc((100svh - 230px) * var(--arw)))}
+.rbar button{font:inherit;font-size:12px;letter-spacing:.08em;color:var(--silver);background:none;border:1px solid var(--hair);border-radius:999px;padding:10px 18px;cursor:pointer;transition:border-color .2s,opacity .2s}
+.rbar button:hover{border-color:var(--steel)}
+.rbar button:disabled{opacity:.3;cursor:default}
+.rbar .count{font-size:12px;color:var(--steel)}
+.stage .hit{position:absolute;top:0;bottom:0;width:50%;z-index:6;cursor:pointer;background:none;border:0}
+.stage .hit.l{left:0;cursor:w-resize}.stage .hit.r{right:0;cursor:e-resize}
 </style>
 </head>
 <body>
@@ -222,7 +250,14 @@ body.locked{overflow:hidden}
     <div><p class="label mono" style="margin-bottom:18px">BOOK</p><h1>브랜드 북</h1><p>디인예를 응축해서 담은 한 권. 이야기, 얼굴, 그리고 쓰는 법.</p></div>
     <a href="assets/diinye-brand-book.pdf" download class="mono">PDF 내려받기 ↓</a>
   </div>
-  <div class="pages"><figure class="rv"><img src="assets/book/01.webp" alt="브랜드 북 1쪽" loading="eager" width="756" height="1073"><figcaption class="mono">01 / 19</figcaption></figure><figure class="rv"><img src="assets/book/02.webp" alt="브랜드 북 2쪽" loading="eager" width="756" height="1073"><figcaption class="mono">02 / 19</figcaption></figure><figure class="rv"><img src="assets/book/03.webp" alt="브랜드 북 3쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">03 / 19</figcaption></figure><figure class="rv"><img src="assets/book/04.webp" alt="브랜드 북 4쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">04 / 19</figcaption></figure><figure class="rv"><img src="assets/book/05.webp" alt="브랜드 북 5쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">05 / 19</figcaption></figure><figure class="rv"><img src="assets/book/06.webp" alt="브랜드 북 6쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">06 / 19</figcaption></figure><figure class="rv"><img src="assets/book/07.webp" alt="브랜드 북 7쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">07 / 19</figcaption></figure><figure class="rv"><img src="assets/book/08.webp" alt="브랜드 북 8쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">08 / 19</figcaption></figure><figure class="rv"><img src="assets/book/09.webp" alt="브랜드 북 9쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">09 / 19</figcaption></figure><figure class="rv"><img src="assets/book/10.webp" alt="브랜드 북 10쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">10 / 19</figcaption></figure><figure class="rv"><img src="assets/book/11.webp" alt="브랜드 북 11쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">11 / 19</figcaption></figure><figure class="rv"><img src="assets/book/12.webp" alt="브랜드 북 12쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">12 / 19</figcaption></figure><figure class="rv"><img src="assets/book/13.webp" alt="브랜드 북 13쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">13 / 19</figcaption></figure><figure class="rv"><img src="assets/book/14.webp" alt="브랜드 북 14쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">14 / 19</figcaption></figure><figure class="rv"><img src="assets/book/15.webp" alt="브랜드 북 15쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">15 / 19</figcaption></figure><figure class="rv"><img src="assets/book/16.webp" alt="브랜드 북 16쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">16 / 19</figcaption></figure><figure class="rv"><img src="assets/book/17.webp" alt="브랜드 북 17쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">17 / 19</figcaption></figure><figure class="rv"><img src="assets/book/18.webp" alt="브랜드 북 18쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">18 / 19</figcaption></figure><figure class="rv"><img src="assets/book/19.webp" alt="브랜드 북 19쪽" loading="lazy" width="756" height="1073"><figcaption class="mono">19 / 19</figcaption></figure></div>
+  <div class="reader" aria-label="브랜드 북">
+    <div class="stage" data-n="19" data-dir="book">
+      <div class="slot l"><img alt=""></div><div class="slot r"><img alt="브랜드 북"></div>
+      <div class="leaf"><div class="face front"><img alt=""></div><div class="face back"><img alt=""></div></div>
+      <button class="hit l" type="button" aria-label="이전 쪽"></button><button class="hit r" type="button" aria-label="다음 쪽"></button>
+    </div>
+    <div class="rbar"><button class="prev mono" type="button">← PREV</button><span class="count mono"></span><button class="next mono" type="button">NEXT →</button></div>
+  </div>
   <footer class="mono"><p>한림대학교 디지털인문예술전공</p><p>브랜드 아이덴티티 · N°19 · 2026—2</p></footer>
 </main>
 <div id="menu" role="dialog" aria-modal="true" aria-label="메뉴" aria-hidden="true">
@@ -249,6 +284,57 @@ body.locked{overflow:hidden}
   m.querySelector('.close').addEventListener('click', close);
   m.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }));
   addEventListener('keydown', e => { if (e.key === 'Escape' && m.classList.contains('open')) close(); });
+})();
+</script>
+<script>
+(() => {
+  const st = document.querySelector('.stage'), N = +st.dataset.n, dir = st.dataset.dir;
+  const src = i => `assets/${dir}/${String(i).padStart(2, '0')}.webp`;
+  for (let i = 1; i <= N; i++) { const im = new Image(); im.src = src(i); }
+  const L = st.querySelector('.slot.l img'), R = st.querySelector('.slot.r img');
+  const leaf = st.querySelector('.leaf'), lf = leaf.querySelector('.front img'), lb = leaf.querySelector('.back img');
+  const prevB = document.querySelector('.rbar .prev'), nextB = document.querySelector('.rbar .next'), cnt = document.querySelector('.rbar .count');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let single = false, s = 0, busy = false;
+  // 펼침면: [표지 혼자], [2,3], [4,5] ... 마지막이 홀수면 혼자
+  const spreads = () => { const a = [[null, 1]]; for (let i = 2; i <= N; i += 2) a.push([i, i + 1 <= N ? i + 1 : null]); return a; };
+  let SP = spreads();
+  const set = (img, i) => { if (i) { img.src = src(i); img.style.visibility = 'visible'; } else { img.removeAttribute('src'); img.style.visibility = 'hidden'; } };
+  function layout() {
+    single = innerWidth < 760;
+    st.classList.toggle('single', single);
+    st.style.setProperty('--ar', single ? '757/1073' : '1514/1073');
+    document.querySelectorAll('.stage,.rbar').forEach(e => e.style.setProperty('--arw', single ? (757/1073) : (1514/1073)));
+  }
+  function draw() {
+    if (single) { set(R, s + 1); cnt.textContent = `${String(s + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}`; prevB.disabled = s === 0; nextB.disabled = s === N - 1; return; }
+    const [a, b] = SP[s]; set(L, a); set(R, b);
+    cnt.textContent = [a, b].filter(Boolean).map(v => String(v).padStart(2, '0')).join('–') + ` / ${String(N).padStart(2, '0')}`;
+    prevB.disabled = s === 0; nextB.disabled = s === SP.length - 1;
+  }
+  function go(d) {
+    if (busy) return;
+    if (single) { const t = s + d; if (t < 0 || t >= N) return; s = t; draw(); R.classList.remove('fade'); void R.offsetWidth; R.classList.add('fade'); return; }
+    const t = s + d; if (t < 0 || t >= SP.length) return;
+    const [ca, cb] = SP[s], [na, nb] = SP[t];
+    if (reduce) { s = t; draw(); return; }
+    busy = true;
+    leaf.className = 'leaf ' + (d > 0 ? 'fwd' : 'bwd'); leaf.style.display = 'block'; leaf.style.transition = 'none';
+    leaf.style.transform = 'rotateY(0deg)';
+    if (d > 0) { set(lf, cb); set(lb, na); set(R, nb); }
+    else { set(lf, ca); set(lb, nb); set(L, na); }
+    void leaf.offsetWidth;
+    leaf.style.transition = ''; leaf.classList.add('turning');
+    leaf.style.transform = d > 0 ? 'rotateY(-180deg)' : 'rotateY(180deg)';
+    setTimeout(() => { s = t; draw(); leaf.style.display = 'none'; busy = false; }, 900);
+  }
+  prevB.onclick = () => go(-1); nextB.onclick = () => go(1);
+  st.querySelector('.hit.l').onclick = () => go(-1); st.querySelector('.hit.r').onclick = () => go(1);
+  addEventListener('keydown', e => { if (document.getElementById('menu')?.classList.contains('open')) return; if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
+  let x0 = null; st.addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
+  st.addEventListener('touchend', e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); x0 = null; });
+  addEventListener('resize', () => { const was = single; layout(); if (was !== single) { if (single) { const [a, b] = SP[s]; s = (a || b) - 1; } else { s = Math.floor((s + 1) / 2); } } draw(); });
+  layout(); draw();
 })();
 </script>
 </body>
