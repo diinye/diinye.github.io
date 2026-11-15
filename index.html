@@ -7,7 +7,7 @@
 <meta name="description" content="먼저 와 있던 곳. 먼저 가 있을 곳. — 한림대학교 디지털인문예술전공 브랜드 아이덴티티">
 <link rel="icon" href="assets/diinye-symbol-B-ink-transparent.svg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400&display=swap">
 <style>
 :root{--ink:#0D0E10;--silver:#E9EBEE;--steel:#8A8F98;--hair:#24272D;--volt:#3D5BFF;--ease:cubic-bezier(.2,.7,.1,1)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -100,7 +100,9 @@ section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
 .principle .w.lit{color:var(--silver)}
 .principle .w.dim.lit{color:var(--steel)}
 
-.sub{font-size:clamp(17px,1.6vw,21px);color:var(--steel);letter-spacing:-.02em;margin:-8px 0 44px;max-width:32em}
+.sub{font-family:"IBM Plex Sans KR",Pretendard,sans-serif;font-size:clamp(14px,1.2vw,16px);color:var(--steel);letter-spacing:.01em;margin:-8px 0 44px;max-width:40em}
+.sub.rv{opacity:1;transform:none;clip-path:inset(0 100% 0 0);transition:clip-path 1.4s var(--ease)}
+.sub.rv.on{clip-path:inset(0 0 0 0)}
 /* 우리는 */
 .who{display:grid;gap:12vh}
 .who .q{font-size:11px;color:var(--steel);margin-bottom:12px}

@@ -196,8 +196,9 @@ body.locked{overflow:hidden}
   .sym i{width:62%}.sym b{opacity:1;transform:none}
   .archive{opacity:1!important}
 }
-.dlrow{display:flex;flex-wrap:wrap;gap:8px;max-width:520px;justify-content:flex-end}
-@media (max-width:700px){.dlrow{justify-content:flex-start}}
+.dlrow{display:grid;grid-template-columns:repeat(2,max-content);gap:8px;justify-content:end}
+.dlrow a{justify-content:center}
+@media (max-width:700px){.dlrow{justify-content:start}}
 </style>
 <style>
 .vhead{padding:20vh 0 10vh;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--hair)}
