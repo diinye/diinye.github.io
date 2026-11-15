@@ -7,7 +7,7 @@
 <meta name="description" content="먼저 와 있던 곳. 먼저 가 있을 곳. — 한림대학교 디지털인문예술전공 브랜드 아이덴티티">
 <link rel="icon" href="assets/diinye-symbol-B-ink-transparent.svg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400&display=swap">
 <style>
 :root{--ink:#0D0E10;--silver:#E9EBEE;--steel:#8A8F98;--hair:#24272D;--volt:#3D5BFF;--ease:cubic-bezier(.2,.7,.1,1)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -199,6 +199,12 @@ body.locked{overflow:hidden}
 .dlrow{display:grid;grid-template-columns:repeat(2,max-content);gap:8px;justify-content:end}
 .dlrow a{justify-content:center}
 @media (max-width:700px){.dlrow{justify-content:start}}
+.symsvg{width:100%;height:auto;display:block;overflow:visible}
+.symsvg .sl{transform-box:fill-box;transform-origin:left center;transform:scaleX(0);transition:transform 1.4s var(--ease)}
+.symsvg .sd{transform-box:fill-box;transform-origin:center;opacity:0;transform:translateX(-60px);transition:opacity .6s 1.1s,transform 1.2s var(--ease) 1.1s}
+.on .symsvg .sl,.symsvg.on .sl{transform:none}
+.on .symsvg .sd,.symsvg.on .sd{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.symsvg .sl,.symsvg .sd{transform:none!important;opacity:1!important}}
 </style>
 <style>
 .vhead{padding:20vh 0 10vh;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--hair)}
@@ -214,14 +220,14 @@ body.locked{overflow:hidden}
 @media (max-width:900px){.pages.two{grid-template-columns:minmax(0,640px)}}
 </style>
 <style>
-.lg{padding:10vh 0;border-top:1px solid var(--hair)}
+.lg{padding:18vh 0;border-top:1px solid var(--hair)}
 .lg:first-of-type{border-top:0}
 .lg .row{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:end}
 @media (max-width:900px){.lg .row{grid-template-columns:1fr}}
 .lg h2{font-size:clamp(22px,2.6vw,32px);font-weight:800;letter-spacing:-.04em;line-height:1.3;margin-bottom:10px}
 .lg p.d{color:var(--steel);font-size:15px}
 .wm{width:100%;height:auto;display:block}
-.stage{border-radius:10px;display:flex;align-items:center;justify-content:center;padding:9vh 7vw}
+.stage{border-radius:10px;margin-bottom:6vh;display:flex;align-items:center;justify-content:center;padding:9vh 7vw}
 .stage.k{background:#0A0B0D;border:1px solid var(--hair)}
 .stage.s{background:var(--silver)}
 .origin{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -252,13 +258,13 @@ body.locked{overflow:hidden}
   <section class="lg">
     <p class="label mono rv">01 — WORDMARK</p>
     <div class="stage k rv"><svg class="wm" viewBox="155.93 59 1184.82 288.6" role="img" aria-label="디인예"><g fill="#E9EBEE" fill-rule="evenodd"><path d="M155.93 64.48C155.93 63.54 156.7 62.77 157.65 62.77L372.35 62.77C373.3 62.77 374.07 63.54 374.07 64.48L374.07 132.63C374.07 133.58 373.3 134.35 372.35 134.35L240.9 134.35L240.9 261.75C240.9 263.46 242.28 264.84 243.99 264.84L372.35 264.84C373.3 264.84 374.07 265.61 374.07 266.56L374.07 334.7C374.07 335.65 373.3 336.42 372.35 336.42L207.85 336.42C179.18 336.42 155.93 313.18 155.93 284.51L155.93 282.79C155.93 282.79 155.93 282.79 155.93 282.79L155.93 266.56L155.93 132.63C155.93 132.63 155.93 132.63 155.93 132.63L155.93 84.21L155.93 64.48Z"/><path d="M398.64 59L479.43 59C479.68 59 479.88 59.2 479.88 59.44L479.88 347.16C479.88 347.4 479.68 347.6 479.43 347.6L398.64 347.6C398.4 347.6 398.2 347.4 398.2 347.16L398.2 59.44C398.2 59.2 398.4 59 398.64 59Z"/><path d="M754.2 60.33L834.99 60.33C835.23 60.33 835.43 60.53 835.43 60.77L835.43 261.14C835.43 261.38 835.23 261.58 834.99 261.58L754.2 261.58C753.95 261.58 753.75 261.38 753.75 261.14L753.75 60.77C753.75 60.53 753.95 60.33 754.2 60.33Z"/><path d="M521.65 242.57C521.65 241.35 522.65 240.35 523.87 240.35L605.32 240.35C606.54 240.35 607.54 241.35 607.54 242.57L607.54 280.04C607.54 280.15 607.63 280.25 607.75 280.25L639.16 280.25L660.91 280.25L835.98 280.25C837.21 280.25 838.2 281.24 838.2 282.47L838.2 345.38C838.2 346.61 837.21 347.6 835.98 347.6L660.91 347.6L639.16 347.6L554.22 347.6C536.23 347.6 521.65 333.02 521.65 315.04L521.65 305.49C521.65 305.49 521.65 305.49 521.65 305.49L521.65 282.47L521.65 242.57Z"/><path d="M1134.75 59.83L1208.18 59.83C1208.42 59.83 1208.62 60.02 1208.62 60.27L1208.62 347.16C1208.62 347.4 1208.42 347.6 1208.18 347.6L1134.75 347.6C1134.51 347.6 1134.31 347.4 1134.31 347.16L1134.31 60.27C1134.31 60.02 1134.51 59.83 1134.75 59.83Z"/><path d="M1046.01 62.04C1046.01 60.82 1047 59.83 1048.23 59.83L1118.1 59.83C1119.33 59.83 1120.32 60.82 1120.32 62.04L1120.32 345.38C1120.32 346.61 1119.33 347.6 1118.1 347.6L1048.23 347.6C1047 347.6 1046.01 346.61 1046.01 345.38L1046.01 267.72C1046.01 267.54 1045.86 267.39 1045.67 267.39L1029.84 267.39C1028.61 267.39 1027.62 266.39 1027.62 265.17L1027.62 215.54C1027.62 214.31 1028.61 213.32 1029.84 213.32L1045.62 213.32C1045.84 213.32 1046.01 213.15 1046.01 212.93L1046.01 178.09C1046.01 177.84 1045.8 177.63 1045.55 177.63L1029.84 177.63C1028.61 177.63 1027.62 176.64 1027.62 175.41L1027.62 125.78C1027.62 124.56 1028.61 123.57 1029.84 123.57L1045.57 123.57C1045.81 123.57 1046.01 123.37 1046.01 123.13L1046.01 62.04Z"/><path d="M862.95 138.99C862.95 98.91 895.44 66.43 935.51 66.43L961.75 66.43C1001.83 66.43 1034.31 98.91 1034.31 138.99L1034.31 267.61C1034.31 307.69 1001.83 340.18 961.75 340.18L935.51 340.18C895.44 340.18 862.95 307.69 862.95 267.61L862.95 138.99ZM948.63 130.43C940.67 130.43 934.21 136.89 934.21 144.85L934.21 261.75C934.21 269.72 940.67 276.17 948.63 276.17C956.6 276.17 963.05 269.72 963.05 261.75L963.05 144.85C963.05 136.89 956.6 130.43 948.63 130.43Z"/><path d="M506.41 135.96C506.41 93.91 540.5 59.83 582.55 59.83L654.28 59.83C696.33 59.83 730.41 93.91 730.41 135.96L730.41 155.06C730.41 197.1 696.33 231.19 654.28 231.19L582.55 231.19C540.5 231.19 506.41 197.1 506.41 155.06L506.41 135.96ZM609.37 117.16C595.49 117.16 584.25 128.41 584.25 142.28L584.25 148.74C584.25 162.61 595.49 173.86 609.37 173.86L627.46 173.86C641.33 173.86 652.58 162.61 652.58 148.74L652.58 142.28C652.58 128.41 641.33 117.16 627.46 117.16L609.37 117.16Z"/></g><path fill="#3D5BFF" d="M1242.21 298.33C1242.21 271.12 1264.27 249.06 1291.48 249.06C1318.7 249.06 1340.75 271.12 1340.75 298.33C1340.75 325.54 1318.7 347.6 1291.48 347.6C1264.27 347.6 1242.21 325.54 1242.21 298.33Z"/></svg></div>
-    <div class="row rv" style="margin-top:36px"><div><h2>디인예, 그리고 점.</h2><p class="d">세 글자는 같은 굵기로 단단하게 서고, 마지막 점만 파랗다. 문장을 끝내는 마침표이자, 다음을 먼저 가리키는 점.</p></div><p class="d mono" style="font-size:11px">이름이 필요한 자리에 쓴다.</p></div>
+    <div class="row rv" style="margin-top:36px"><div><h2>디인예, 그리고 점.</h2><p class="d">세 글자는 같은 굵기로 단단하게 서고, 마지막 점만 파랗다. 문장을 끝내는 마침표이자, 다음을 먼저 가리키는 점.</p></div><p class="d" style="font-family:\'IBM Plex Sans KR\',Pretendard,sans-serif;font-size:13px">이름이 필요한 자리에 쓴다.</p></div>
   </section>
 
   <section class="lg">
     <p class="label mono rv">02 — SYMBOL</p>
-    <div class="stage k rv" style="padding:12vh 10vw"><div class="sym" id="sym" style="margin:0;width:100%" aria-hidden="true"><i></i><b></b></div></div>
-    <div class="row rv" style="margin-top:36px"><div><h2>앞선 점.</h2><p class="d">선은 지나온 길, 점은 그보다 한 발 앞. 먼저 와 있던 곳, 먼저 가 있을 곳.</p></div><p class="d mono" style="font-size:11px">이름 없이도 알아봐야 하는 작은 자리에 쓴다.</p></div>
+    <div class="stage k rv" style="padding:12vh 10vw"><svg class="symsvg" id="sym" viewBox="0 0 874.5 98.5" aria-hidden="true"><rect class="sl" x="0" y="8.25" width="665" height="82" rx="41" fill="#E9EBEE"/><circle class="sd" cx="825.25" cy="49.25" r="49.25" fill="#3D5BFF"/></svg></div>
+    <div class="row rv" style="margin-top:36px"><div><h2>앞선 점.</h2><p class="d">선은 지나온 길, 점은 그보다 한 발 앞. 먼저 와 있던 곳, 먼저 가 있을 곳.</p></div><p class="d" style="font-family:\'IBM Plex Sans KR\',Pretendard,sans-serif;font-size:13px">이름 없이도 알아봐야 하는 작은 자리에 쓴다.</p></div>
   </section>
 
   <section class="lg">
