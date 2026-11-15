@@ -94,8 +94,9 @@ section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
 @media (max-width:600px){section.wrap{padding-top:14vh;padding-bottom:14vh}}
 
 /* 원칙: 스크롤에 따라 단어가 밝아짐 */
-.principle p{font-size:clamp(30px,5.4vw,76px);font-weight:800;letter-spacing:-.05em;line-height:1.08}
-.principle .w{color:#2A2D33;transition:color .5s}
+.principle p[data-words]{font-size:clamp(26px,4vw,54px);font-weight:800;letter-spacing:-.05em;line-height:1.08}
+.principle .w{display:inline-block;color:#1A1C20;filter:blur(6px);transform:translateX(-10px);transition:color .9s var(--ease),filter .9s var(--ease),transform .9s var(--ease)}
+.principle .w.lit{filter:none;transform:none}
 .principle .w.lit{color:var(--silver)}
 .principle .w.dim.lit{color:var(--steel)}
 
@@ -395,7 +396,7 @@ body.locked{overflow:hidden}
   rows[0].innerHTML = mk(years.slice(0,7).concat(years.slice(7)));
   rows[1].innerHTML = mk(years.slice().reverse());
   const arc = document.getElementById('archive');
-  addEventListener('scroll', () => { arc.style.transform = `translateY(${Math.min(scrollY, innerHeight) * .35}px)`; }, { passive: true });
+  addEventListener('scroll', () => { const y = Math.min(scrollY, innerHeight) * .35; rows.forEach(r => r.style.translate = `0 ${y}px`); }, { passive: true });
 
   // + 디인예 =
   const pairs = [['철학','디지털 마케터'],['빅데이터','자연어처리 박사과정'],['사학','머신러닝 연구원'],['영어영문학','인공지능 연구원'],['의과학융합','프랑스 공중보건 석사'],['디지털미디어콘텐츠','UX 디자이너'],['국어국문학','게임 컨설턴트'],['콘텐츠IT','풀스택 개발자'],['사회학','웹소설 PD'],['정치행정학','비주얼 디자이너'],['심리학','미술 작가']];
