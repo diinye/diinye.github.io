@@ -36,11 +36,11 @@ header.nav nav a:hover{opacity:1}
 @media (max-width:600px){.logo{width:70vw}}
 .logo svg{width:100%;height:100%;display:block;overflow:visible}
 .logo .gl,.logo .dot{transform-box:fill-box}
-.logo .gl{opacity:0;transform:translateY(18%);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.logo .dot{opacity:0;transform:translateX(-140%);transition:transform 1.2s var(--ease) .75s,opacity .4s .75s}
-.ready .logo .gl{opacity:1;transform:none}
-.ready .logo .gl:nth-child(2){transition-delay:.12s}
-.ready .logo .gl:nth-child(3){transition-delay:.24s}
+.logo .gl{opacity:0;transform:translateY(42%);filter:blur(10px);transition:opacity 1.1s var(--ease),transform 1.3s var(--ease),filter 1.1s var(--ease)}
+.logo .dot{opacity:0;transform:scale(0);transform-origin:center;transition:transform .9s cubic-bezier(.3,1.6,.5,1) .95s,opacity .2s .95s}
+.ready .logo .gl{opacity:1;transform:none;filter:none}
+.ready .logo .gl:nth-child(2){transition-delay:.16s}
+.ready .logo .gl:nth-child(3){transition-delay:.32s}
 .ready .logo .dot{opacity:1;transform:none}
 .slogan{font-size:clamp(17px,1.8vw,26px);font-weight:800;letter-spacing:-.04em;line-height:1.25;margin-top:5vh;opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease) 1.2s,transform 1s var(--ease) 1.2s}
 .slogan span{color:var(--steel);font-weight:400}
@@ -162,7 +162,7 @@ section.wrap{padding-top:22vh;padding-bottom:22vh;position:relative}
 .symtxt span{color:var(--steel);font-weight:400}
 
 /* 마무리 */
-.closing{min-height:80svh;display:flex;flex-direction:column;justify-content:center}
+.closing{min-height:80svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .cl{font-size:clamp(28px,4.4vw,60px);font-weight:800;letter-spacing:-.045em;line-height:1.2}
 .cl.dim{color:var(--steel);font-weight:400;transition-delay:.35s}
 .cdot{display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--volt);margin-left:.08em;vertical-align:baseline;opacity:0;transform:translateX(-.5em);transition:opacity .6s 1.1s,transform 1s var(--ease) 1.1s}
@@ -339,7 +339,8 @@ body.locked{overflow:hidden}
   let seen = false;
   try { seen = sessionStorage.getItem('diinye-intro') === '1' || !!location.hash; } catch (e) { seen = !!location.hash; }
   if (seen) {
-    intro.classList.add('gone'); document.body.classList.remove('locked'); document.body.classList.add('ready');
+    intro.classList.add('gone'); document.body.classList.remove('locked');
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => document.body.classList.add('ready'), 120)));
   } else {
     try { sessionStorage.setItem('diinye-intro', '1'); } catch (e) {}
   }
